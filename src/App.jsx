@@ -4,10 +4,20 @@
         -> Square
     -> Hostory
 */
+import { useState } from "react";
 
-function Square({ value }) {
+function Square() {
+    const [value, setValue] = useState(null);
+
+    function handleClick() {
+        setValue("X");
+    }
+
     return (
-        <button className="bg-white border border-gray-400 size-12 m-1 leading-9 text-lg">
+        <button
+            className="bg-white border border-gray-400 size-12 m-1 leading-9 text-lg"
+            onClick={handleClick}
+        >
             {value}
         </button>
     );
@@ -16,22 +26,22 @@ function Square({ value }) {
 function Board() {
     return (
         <>
-            <div>
-                <Square value="1" />
-                <Square value="2" />
-                <Square value="3" />
+            <div className="flex">
+                <Square />
+                <Square />
+                <Square />
             </div>
 
-            <div>
-                <Square value="4" />
-                <Square value="5" />
-                <Square value="6" />
+            <div className="flex">
+                <Square />
+                <Square />
+                <Square />
             </div>
 
-            <div>
-                <Square value="7" />
-                <Square value="8" />
-                <Square value="9" />
+            <div className="flex">
+                <Square />
+                <Square />
+                <Square />
             </div>
         </>
     );
