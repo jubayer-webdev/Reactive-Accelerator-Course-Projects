@@ -2,21 +2,21 @@ import { useState } from "react";
 import Square from "./Square";
 import calculateWinner from "../helper/calculateWinner";
 
-const Board = ({ xIsNext, squares, onPlay }) => {
-    const winner = calculateWinner(squares);
+const Board = ({ xIsNext, currentSquares, onPlay }) => {
+    const winner = calculateWinner(currentSquares);
     let status;
     if (winner) {
         status = `Winner: ${winner}`;
     } else {
-        status = "Next Player " + (xIsNext ? "X" : "O");
+        status = "Next Player: " + (xIsNext ? "X" : "O");
     }
 
-    function handleClick(i) {
-        if (squares[i] || calculateWinner(squares)) {
+    function handleSquareClick(i) {
+        if (currentSquares[i] || calculateWinner(currentSquares)) {
             return;
         }
 
-        const nextSquares = squares.slice();
+        const nextSquares = currentSquares.slice();
 
         if (xIsNext) {
             nextSquares[i] = "X";
@@ -45,46 +45,46 @@ const Board = ({ xIsNext, squares, onPlay }) => {
             <div>{status}</div>
             <div className="flex">
                 <Square
-                    value={squares[0]}
-                    onSquareClick={() => handleClick(0)}
+                    value={currentSquares[0]}
+                    onSquareClick={() => handleSquareClick(0)}
                 />
                 <Square
-                    value={squares[1]}
-                    onSquareClick={() => handleClick(1)}
+                    value={currentSquares[1]}
+                    onSquareClick={() => handleSquareClick(1)}
                 />
                 <Square
-                    value={squares[2]}
-                    onSquareClick={() => handleClick(2)}
-                />
-            </div>
-
-            <div className="flex">
-                <Square
-                    value={squares[3]}
-                    onSquareClick={() => handleClick(3)}
-                />
-                <Square
-                    value={squares[4]}
-                    onSquareClick={() => handleClick(4)}
-                />
-                <Square
-                    value={squares[5]}
-                    onSquareClick={() => handleClick(5)}
+                    value={currentSquares[2]}
+                    onSquareClick={() => handleSquareClick(2)}
                 />
             </div>
 
             <div className="flex">
                 <Square
-                    value={squares[6]}
-                    onSquareClick={() => handleClick(6)}
+                    value={currentSquares[3]}
+                    onSquareClick={() => handleSquareClick(3)}
                 />
                 <Square
-                    value={squares[7]}
-                    onSquareClick={() => handleClick(7)}
+                    value={currentSquares[4]}
+                    onSquareClick={() => handleSquareClick(4)}
                 />
                 <Square
-                    value={squares[8]}
-                    onSquareClick={() => handleClick(8)}
+                    value={currentSquares[5]}
+                    onSquareClick={() => handleSquareClick(5)}
+                />
+            </div>
+
+            <div className="flex">
+                <Square
+                    value={currentSquares[6]}
+                    onSquareClick={() => handleSquareClick(6)}
+                />
+                <Square
+                    value={currentSquares[7]}
+                    onSquareClick={() => handleSquareClick(7)}
+                />
+                <Square
+                    value={currentSquares[8]}
+                    onSquareClick={() => handleSquareClick(8)}
                 />
             </div>
         </>
