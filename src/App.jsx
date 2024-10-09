@@ -5,6 +5,7 @@
     -> Hostory
 */
 import { useState } from "react";
+import calculateWinner from "./helper/calculateWinner";
 
 function Square({ value, onSquareClick }) {
     return (
@@ -21,8 +22,15 @@ function Board(i) {
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
 
+    const winner = calculateWinner(squares);
+    if (winner) {
+        status = `Winner: ${winner}`;
+    } else {
+        status = "Next Player " + (xIsNext ? "X" : "O");
+    }
+
     function handleClick(i) {
-        if (squares[i]) {
+        if (squares[i] || calculateWinner(squares)) {
             return;
         }
 
@@ -40,6 +48,7 @@ function Board(i) {
 
     return (
         <>
+            <div>{status}</div>
             <div className="flex">
                 <Square
                     value={squares[0]}
