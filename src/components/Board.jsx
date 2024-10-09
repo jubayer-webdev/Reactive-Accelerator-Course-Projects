@@ -2,8 +2,9 @@ import { useState } from "react";
 import Square from "./Square";
 import calculateWinner from "../helper/calculateWinner";
 
-const Board = ({ i }) => {
+const Board = ({ xIsNext, squares, onPlay }) => {
     const winner = calculateWinner(squares);
+    let status;
     if (winner) {
         status = `Winner: ${winner}`;
     } else {
@@ -23,8 +24,10 @@ const Board = ({ i }) => {
             nextSquares[i] = "O";
         }
 
-        setSquares(nextSquares);
-        setXIsNext(!xIsNext);
+        onPlay(nextSquares);
+
+        // setSquares(nextSquares);
+        // setXIsNext(!xIsNext);
 
         [
             // before first move
