@@ -1,5 +1,6 @@
 import AboutSection from "./sections/aboutSection/AboutSection";
 import AvailableSection from "./sections/availableSection/AvailableSection";
+import ContactSection from "./sections/contactSection/ContactSection";
 import CTASection from "./sections/CTASection/CTASection";
 import FAQSection from "./sections/FAQSection/FAQSection";
 import FeaturesSection from "./sections/featuresSection/FeaturesSection";
@@ -21,6 +22,7 @@ function App() {
             <CTASection />
             <FAQSection />
             <TeamSection />
+            <ContactSection />
         </>
     );
 }
