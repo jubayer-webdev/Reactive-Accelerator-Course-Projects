@@ -3,7 +3,7 @@ import FeaturesCard from "./FeaturesCard";
 
 const Features = () => {
     return (
-        <div class="container">
+        <div className="container">
             <FeatureHeading />
 
             <FeaturesCard />

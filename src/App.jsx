@@ -1,3 +1,4 @@
+import AboutSection from "./sections/aboutSection/AboutSection";
 import AvailableSection from "./sections/availableSection/AvailableSection";
 import FeaturesSection from "./sections/featuresSection/FeaturesSection";
 import HeroSection from "./sections/heroSection/HeroSection";
@@ -12,6 +13,8 @@ function App() {
             <FeaturesSection />
 
             <AvailableSection />
+
+            <AboutSection />
         </>
     );
 }

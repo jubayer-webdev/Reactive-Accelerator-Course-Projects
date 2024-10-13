@@ -3,7 +3,7 @@ import AvailableCards from "./AvailableCards";
 
 const Available = () => {
     return (
-        <div class="container">
+        <div className="container">
             <AvailableHeading /> <AvailableCards />
         </div>
     );
