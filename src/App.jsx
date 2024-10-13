@@ -1,7 +1,11 @@
+import HeroSection from "./sections/heroSection/HeroSection";
+import NavbarSection from "./sections/navbarSection/NavbarSection";
+
 function App() {
     return (
         <>
-            <h1 className="text-3">Hello World!</h1>
+            <NavbarSection />
+            <HeroSection />
         </>
     );
 }
