@@ -4,6 +4,7 @@ import ContactSection from "./sections/contactSection/ContactSection";
 import CTASection from "./sections/CTASection/CTASection";
 import FAQSection from "./sections/FAQSection/FAQSection";
 import FeaturesSection from "./sections/featuresSection/FeaturesSection";
+import FooterSection from "./sections/footerSection/FooterSection";
 import HeroSection from "./sections/heroSection/HeroSection";
 import NavbarSection from "./sections/navbarSection/NavbarSection";
 import TeamSection from "./sections/teamSection/TeamSection";
@@ -15,14 +16,14 @@ function App() {
             <HeroSection />
 
             <FeaturesSection />
-
             <AvailableSection />
-
             <AboutSection />
             <CTASection />
             <FAQSection />
             <TeamSection />
             <ContactSection />
+
+            <FooterSection />
         </>
     );
 }
