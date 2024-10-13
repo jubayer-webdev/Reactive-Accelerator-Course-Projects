@@ -1,7 +1,7 @@
 import AboutUs from "./AboutUs";
 import FeaturesFooter from "./FeaturesFooter";
 import LatestBlog from "./LatestBlog";
-import LWS from "./lws";
+import LWS from "./LWS";
 
 const FooterSection = () => {
     return (
