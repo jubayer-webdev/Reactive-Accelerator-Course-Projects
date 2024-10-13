@@ -1,5 +1,5 @@
-import HeroCircleSVG1 from "../../../components/SVG/HeroCircleSVG1";
-import HeroCircleSVG2 from "../../../components/SVG/HeroCircleSVG2";
+import HeroCircleSVG1 from "../../../components/SVG/hero/HeroCircleSVG1";
+import HeroCircleSVG2 from "../../../components/SVG/hero/HeroCircleSVG2";
 
 const HeroImage = () => {
     return (

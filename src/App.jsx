@@ -1,3 +1,4 @@
+import FeaturesSection from "./sections/featuresSection/FeaturesSection";
 import HeroSection from "./sections/heroSection/HeroSection";
 import NavbarSection from "./sections/navbarSection/NavbarSection";
 
@@ -6,6 +7,8 @@ function App() {
         <>
             <NavbarSection />
             <HeroSection />
+
+            <FeaturesSection />
         </>
     );
 }
