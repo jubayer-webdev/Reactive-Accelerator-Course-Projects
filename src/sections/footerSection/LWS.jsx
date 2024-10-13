@@ -12,7 +12,7 @@ const LWS = () => {
                     className="mb-6 inline-block max-h-[100px]"
                 >
                     <img
-                        src="assets/images/logo/logo.svg"
+                        src="/assets/images/logo/logo.svg"
                         alt="logo"
                         className="max-w-full"
                     />

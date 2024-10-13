@@ -4,7 +4,7 @@ const TeamCards = () => {
     const teamMembers = [
         {
             id: 1,
-            imagePath: "./assets/images/team/team-01.png",
+            imagePath: "/assets/images/team/team-01.png",
             memberName: "Melissa Tatcher",
             expertIn: "Marketing Expert",
         },
