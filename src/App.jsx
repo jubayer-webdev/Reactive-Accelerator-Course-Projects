@@ -5,6 +5,7 @@ import FAQSection from "./sections/FAQSection/FAQSection";
 import FeaturesSection from "./sections/featuresSection/FeaturesSection";
 import HeroSection from "./sections/heroSection/HeroSection";
 import NavbarSection from "./sections/navbarSection/NavbarSection";
+import TeamSection from "./sections/teamSection/TeamSection";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
             <AboutSection />
             <CTASection />
             <FAQSection />
+            <TeamSection />
         </>
     );
 }
