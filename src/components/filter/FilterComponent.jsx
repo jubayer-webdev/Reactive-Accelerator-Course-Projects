@@ -2,7 +2,11 @@ import PropTypes from "prop-types";
 import FilterIcon from "../svg/FilterIcon";
 import FilterModal from "../modals/FilterModal";
 
-const FilterComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
+const FilterComponent = ({
+    clickedSortOrFilter,
+    setClickedSortOrFilter,
+    filterCategory,
+}) => {
     return (
         // <!-- Filtering -->
         <div className="relative inline-block text-left">
@@ -25,7 +29,9 @@ const FilterComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
                 </button>
             </div>
 
-            {clickedSortOrFilter?.isClickedFilter && <FilterModal />}
+            {clickedSortOrFilter?.isClickedFilter && (
+                <FilterModal filterCategory={filterCategory} />
+            )}
         </div>
     );
 };
@@ -33,6 +39,7 @@ const FilterComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
 FilterComponent.propTypes = {
     clickedSortOrFilter: PropTypes.object.isRequired,
     setClickedSortOrFilter: PropTypes.object.isRequired,
+    filterCategory: PropTypes.array.isRequired,
 };
 
 export default FilterComponent;
