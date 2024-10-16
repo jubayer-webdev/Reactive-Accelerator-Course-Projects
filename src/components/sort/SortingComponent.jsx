@@ -1,10 +1,8 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 import SortingIcon from "../svg/SortingIcon";
 import SortModal from "../modals/SortModal";
 
-const SortingComponent = () => {
-    const [isClickedSort, setIsClickedSort] = useState(false);
-
+const SortingComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
     return (
         // <!-- Sorting -->
         <div className="relative inline-block text-left">
@@ -15,15 +13,25 @@ const SortingComponent = () => {
                     id="menu-button"
                     aria-expanded="true"
                     aria-haspopup="true"
-                    onClick={() => setIsClickedSort(!isClickedSort)}
+                    onClick={() =>
+                        setClickedSortOrFilter({
+                            isClickedSort: !clickedSortOrFilter?.isClickedSort,
+                            isClickedFilter: false,
+                        })
+                    }
                 >
                     <SortingIcon />
                 </button>
             </div>
 
-            {isClickedSort && <SortModal />}
+            {clickedSortOrFilter?.isClickedSort && <SortModal />}
         </div>
     );
+};
+
+SortingComponent.propTypes = {
+    clickedSortOrFilter: PropTypes.object.isRequired,
+    setClickedSortOrFilter: PropTypes.object.isRequired,
 };
 
 export default SortingComponent;

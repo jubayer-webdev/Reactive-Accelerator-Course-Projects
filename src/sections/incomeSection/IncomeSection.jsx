@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DeleteButton from "../../components/buttons/DeleteButton";
 import EditButton from "../../components/buttons/EditButton";
 import FilterComponent from "../../components/filter/FilterComponent";
@@ -5,6 +6,30 @@ import SortingComponent from "../../components/sort/SortingComponent";
 import IncomeIcon from "../../components/svg/IncomeIcon";
 
 const IncomeSection = () => {
+    const filterCategory = [
+        {
+            id: crypto.randomUUID(),
+            label: "Salary",
+        },
+        {
+            id: crypto.randomUUID(),
+            label: "Outsourcing",
+        },
+        {
+            id: crypto.randomUUID(),
+            label: "Bond",
+        },
+        {
+            id: crypto.randomUUID(),
+            label: "Dividend",
+        },
+    ];
+
+    const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
+        isClickedSort: false,
+        isClickedFilter: false,
+    });
+
     return (
         // <!-- Income -->
         <div className="border rounded-md relative">
@@ -22,10 +47,17 @@ const IncomeSection = () => {
                 </div>
                 <div>
                     {/* <!-- Sorting --> */}
-                    <SortingComponent />
+                    <SortingComponent
+                        clickedSortOrFilter={clickedSortOrFilter}
+                        setClickedSortOrFilter={setClickedSortOrFilter}
+                    />
 
                     {/* <!-- Filtering --> */}
-                    <FilterComponent />
+                    <FilterComponent
+                        clickedSortOrFilter={clickedSortOrFilter}
+                        setClickedSortOrFilter={setClickedSortOrFilter}
+                        filterCategory={filterCategory}
+                    />
                 </div>
             </div>
 

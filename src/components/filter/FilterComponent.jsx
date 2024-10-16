@@ -1,10 +1,8 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 import FilterIcon from "../svg/FilterIcon";
 import FilterModal from "../modals/FilterModal";
 
-const FilterComponent = () => {
-    const [isClickedFilter, setIsClickedFilter] = useState(false);
-
+const FilterComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
     return (
         // <!-- Filtering -->
         <div className="relative inline-block text-left">
@@ -15,15 +13,26 @@ const FilterComponent = () => {
                     id="filter-button"
                     aria-expanded="true"
                     aria-haspopup="true"
-                    onClick={() => setIsClickedFilter(!isClickedFilter)}
+                    onClick={() =>
+                        setClickedSortOrFilter({
+                            isClickedSort: false,
+                            isClickedFilter:
+                                !clickedSortOrFilter?.isClickedFilter,
+                        })
+                    }
                 >
                     <FilterIcon />
                 </button>
             </div>
 
-            {isClickedFilter && <FilterModal />}
+            {clickedSortOrFilter?.isClickedFilter && <FilterModal />}
         </div>
     );
+};
+
+FilterComponent.propTypes = {
+    clickedSortOrFilter: PropTypes.object.isRequired,
+    setClickedSortOrFilter: PropTypes.object.isRequired,
 };
 
 export default FilterComponent;
