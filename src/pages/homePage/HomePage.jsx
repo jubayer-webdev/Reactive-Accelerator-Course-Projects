@@ -39,6 +39,9 @@ const HomePage = () => {
         },
     ]);
 
+    const [totalIncome, setTotalIncome] = useState(2000);
+    const [totalExpense, setTotalExpense] = useState(3000);
+
     return (
         <>
             <NavbarSection />
@@ -51,12 +54,18 @@ const HomePage = () => {
                         setAllExpenseData={setAllExpenseData}
                         allIncomeData={allIncomeData}
                         setAllIncomeData={setAllIncomeData}
+                        // balance
+                        setTotalIncome={setTotalIncome}
+                        setTotalExpense={setTotalExpense}
                     />
 
                     {/* <!-- Right Column --> */}
                     <BalanceSection
                         allExpenseData={allExpenseData}
                         allIncomeData={allIncomeData}
+                        // balance
+                        totalIncome={totalIncome}
+                        totalExpense={totalExpense}
                     />
                 </section>
             </main>

@@ -4,7 +4,12 @@ import Input from "../../../components/shared/Input";
 import Label from "../../../components/shared/Label";
 import SelectInput from "../../../components/shared/SelectInput";
 
-const ExpensesTrackerForm = ({ setAllExpenseData, setAllIncomeData }) => {
+const ExpensesTrackerForm = ({
+    setAllExpenseData,
+    setAllIncomeData,
+    setTotalIncome,
+    setTotalExpense,
+}) => {
     const categoryForExpense = [
         { id: crypto.randomUUID(), label: "Select Category", value: "" },
         { id: crypto.randomUUID(), label: "Education", value: "Education" },
@@ -51,11 +56,19 @@ const ExpensesTrackerForm = ({ setAllExpenseData, setAllIncomeData }) => {
                 ...prevAllExpenseData,
                 formData,
             ]);
+            setTotalExpense(
+                (prevTotalExpense) =>
+                    prevTotalExpense + parseFloat(formData?.amount)
+            );
         } else {
             setAllIncomeData((prevAllIncomeData) => [
                 ...prevAllIncomeData,
                 formData,
             ]);
+            setTotalIncome(
+                (prevTotalIncome) =>
+                    prevTotalIncome + parseFloat(formData?.amount)
+            );
         }
 
         setFormData({
@@ -167,6 +180,8 @@ const ExpensesTrackerForm = ({ setAllExpenseData, setAllIncomeData }) => {
 ExpensesTrackerForm.propTypes = {
     setAllExpenseData: PropTypes.func.isRequired,
     setAllIncomeData: PropTypes.func.isRequired,
+    setTotalIncome: PropTypes.func.isRequired,
+    setTotalExpense: PropTypes.func.isRequired,
 };
 
 export default ExpensesTrackerForm;
