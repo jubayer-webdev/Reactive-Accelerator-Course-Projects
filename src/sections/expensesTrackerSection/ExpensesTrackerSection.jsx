@@ -1,6 +1,7 @@
-import ExpensesTrackerForm from "./formSumbmission/ExpensesTrackerForm";
+import ExpensesTrackerForm from "./formSubmission/ExpensesTrackerForm";
+import PropTypes from "prop-types";
 
-const ExpensesTrackerSection = () => {
+const ExpensesTrackerSection = ({ ...props }) => {
     return (
         // <!-- Submission Form -->
         <div className="p-6 py-8 bg-[#F9FAFB] border rounded-md">
@@ -8,9 +9,14 @@ const ExpensesTrackerSection = () => {
                 Expense Tracker
             </h2>
 
-            <ExpensesTrackerForm />
+            <ExpensesTrackerForm {...props} />
         </div>
     );
+};
+
+ExpensesTrackerSection.propTypes = {
+    setAllExpenseData: PropTypes.func.isRequired,
+    setAllIncomeData: PropTypes.func.isRequired,
 };
 
 export default ExpensesTrackerSection;

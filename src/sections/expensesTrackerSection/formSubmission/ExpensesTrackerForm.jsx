@@ -1,24 +1,27 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import Input from "../../../components/shared/Input";
 import Label from "../../../components/shared/Label";
 import SelectInput from "../../../components/shared/SelectInput";
 
-const ExpensesTrackerForm = () => {
+const ExpensesTrackerForm = ({ setAllExpenseData, setAllIncomeData }) => {
     const categoryForExpense = [
-        { id: crypto.randomUUID(), label: "Education" },
-        { id: crypto.randomUUID(), label: "Food" },
-        { id: crypto.randomUUID(), label: "Health" },
-        { id: crypto.randomUUID(), label: "Bill" },
-        { id: crypto.randomUUID(), label: "Insurance" },
-        { id: crypto.randomUUID(), label: "Tax" },
-        { id: crypto.randomUUID(), label: "Transport" },
-        { id: crypto.randomUUID(), label: "Telephone" },
+        { id: crypto.randomUUID(), label: "Select Category", value: "" },
+        { id: crypto.randomUUID(), label: "Education", value: "Education" },
+        { id: crypto.randomUUID(), label: "Food", value: "Food" },
+        { id: crypto.randomUUID(), label: "Health", value: "Health" },
+        { id: crypto.randomUUID(), label: "Bill", value: "Bill" },
+        { id: crypto.randomUUID(), label: "Insurance", value: "Insurance" },
+        { id: crypto.randomUUID(), label: "Tax", value: "Tax" },
+        { id: crypto.randomUUID(), label: "Transport", value: "Transport" },
+        { id: crypto.randomUUID(), label: "Telephone", value: "Telephone" },
     ];
     const categoryForIncome = [
-        { id: crypto.randomUUID(), label: "Salary" },
-        { id: crypto.randomUUID(), label: "Outsourcing" },
-        { id: crypto.randomUUID(), label: "Bond" },
-        { id: crypto.randomUUID(), label: "Dividend " },
+        { id: crypto.randomUUID(), label: "Select Category", value: "" },
+        { id: crypto.randomUUID(), label: "Salary", value: "Salary" },
+        { id: crypto.randomUUID(), label: "Outsourcing", value: "Outsourcing" },
+        { id: crypto.randomUUID(), label: "Bond", value: "Bond" },
+        { id: crypto.randomUUID(), label: "Dividend", value: "Dividend" },
     ];
 
     const [isExpenseClicked, setIsExpenseClicked] = useState(true);
@@ -26,8 +29,45 @@ const ExpensesTrackerForm = () => {
     const [selectedCategory, setSelectedCategory] =
         useState(categoryForExpense);
 
+    const [formData, setFormData] = useState({
+        id: crypto.randomUUID(),
+        category: "",
+        amount: "",
+        date: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prevFromData) => ({ ...prevFromData, [name]: value }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
+
+        if (isExpenseClicked) {
+            setAllExpenseData((prevAllExpenseData) => [
+                ...prevAllExpenseData,
+                formData,
+            ]);
+        } else {
+            setAllIncomeData((prevAllIncomeData) => [
+                ...prevAllIncomeData,
+                formData,
+            ]);
+        }
+
+        setFormData({
+            id: crypto.randomUUID(),
+            category: "",
+            amount: "",
+            date: "",
+        });
+    };
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6">
                 <button
                     className={`cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 ${
@@ -36,7 +76,7 @@ const ExpensesTrackerForm = () => {
                     onClick={() => {
                         setIsExpenseClicked(true);
                         setIsIncomeClicked(false);
-                        console.log("Expense clicked");
+                        // console.log("Expense clicked");
                         setSelectedCategory(categoryForExpense);
                     }}
                     disabled={isExpenseClicked}
@@ -67,14 +107,20 @@ const ExpensesTrackerForm = () => {
                         id="category"
                         name="category"
                         autoComplete="category-name"
+                        value={formData?.category}
+                        onChange={handleChange}
+                        required
                     >
                         {selectedCategory?.map((item) => (
-                            <option key={item?.id}>{item?.label}</option>
+                            <option key={item?.id} value={item?.value}>
+                                {item?.label}
+                            </option>
                         ))}
                     </SelectInput>
                 </div>
             </div>
 
+            {/* Amount */}
             <div className="mt-3">
                 <Label htmlFor="amount">Amount</Label>
                 <div className="mt-2">
@@ -82,12 +128,16 @@ const ExpensesTrackerForm = () => {
                         type="number"
                         name="amount"
                         id="amount"
-                        autoComplete="off"
+                        // autoComplete="off"
                         placeholder="12931"
+                        value={formData?.amount}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
             </div>
 
+            {/* Date */}
             <div className="mt-3">
                 <Label htmlFor="date">Date</Label>
                 <div className="mt-2">
@@ -97,6 +147,9 @@ const ExpensesTrackerForm = () => {
                         id="date"
                         autoComplete="off"
                         placeholder="12931"
+                        value={formData?.date}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
             </div>
@@ -109,6 +162,11 @@ const ExpensesTrackerForm = () => {
             </button>
         </form>
     );
+};
+
+ExpensesTrackerForm.propTypes = {
+    setAllExpenseData: PropTypes.func.isRequired,
+    setAllIncomeData: PropTypes.func.isRequired,
 };
 
 export default ExpensesTrackerForm;
