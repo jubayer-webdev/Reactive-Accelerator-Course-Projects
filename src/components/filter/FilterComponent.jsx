@@ -38,7 +38,7 @@ const FilterComponent = ({
 
 FilterComponent.propTypes = {
     clickedSortOrFilter: PropTypes.object.isRequired,
-    setClickedSortOrFilter: PropTypes.object.isRequired,
+    setClickedSortOrFilter: PropTypes.func.isRequired,
     filterCategory: PropTypes.array.isRequired,
 };
 

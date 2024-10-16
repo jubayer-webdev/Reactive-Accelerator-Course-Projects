@@ -31,7 +31,7 @@ const SortingComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
 
 SortingComponent.propTypes = {
     clickedSortOrFilter: PropTypes.object.isRequired,
-    setClickedSortOrFilter: PropTypes.object.isRequired,
+    setClickedSortOrFilter: PropTypes.func.isRequired,
 };
 
 export default SortingComponent;
