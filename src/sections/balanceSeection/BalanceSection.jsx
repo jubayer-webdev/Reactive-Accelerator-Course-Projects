@@ -4,8 +4,15 @@ import IncomeSection from "../incomeSection/IncomeSection";
 import BalanceCalculation from "./balance/BalanceCalculation";
 
 const BalanceSection = ({
+    setFormData,
+    setIsForEdit,
+    //
     allExpenseData,
     allIncomeData,
+    //
+    setIsIncomeClicked,
+    setSelectedCategory,
+    //
     totalIncome,
     totalExpense,
 }) => {
@@ -20,8 +27,24 @@ const BalanceSection = ({
 
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-                <IncomeSection allIncomeData={allIncomeData} />
-                <ExpenseSection allExpenseData={allExpenseData} />
+                <IncomeSection
+                    setFormData={setFormData}
+                    setIsForEdit={setIsForEdit}
+                    // 
+                    allIncomeData={allIncomeData}
+                    // 
+                    setIsIncomeClicked={setIsIncomeClicked}
+                    setSelectedCategory={setSelectedCategory}
+                />
+                <ExpenseSection
+                    setFormData={setFormData}
+                    setIsForEdit={setIsForEdit}
+                    // 
+                    allExpenseData={allExpenseData}
+                    // 
+                    setIsIncomeClicked={setIsIncomeClicked}
+                    setSelectedCategory={setSelectedCategory}
+                />
             </div>
         </div>
     );
@@ -32,6 +55,10 @@ BalanceSection.propTypes = {
     allIncomeData: PropTypes.array.isRequired,
     totalIncome: PropTypes.number.isRequired,
     totalExpense: PropTypes.number.isRequired,
+    setFormData: PropTypes.func.isRequired,
+    setIsForEdit: PropTypes.func.isRequired,
+    setIsIncomeClicked: PropTypes.func.isRequired,
+    setSelectedCategory: PropTypes.func.isRequired,
 };
 
 export default BalanceSection;

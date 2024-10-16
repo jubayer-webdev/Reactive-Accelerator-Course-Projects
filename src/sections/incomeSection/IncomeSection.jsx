@@ -5,28 +5,19 @@ import EditButton from "../../components/buttons/EditButton";
 import FilterComponent from "../../components/filter/FilterComponent";
 import SortingComponent from "../../components/sort/SortingComponent";
 import IncomeIcon from "../../components/svg/IncomeIcon";
-import formatTheDate from "../../healper/formatTheDate";
+import formatTheDate from "../../helper/formatTheDate";
+import filterCategory from "../../data/filterCategoryIncome";
+import categoryForIncome from "../../data/categoryForIncome";
 
-const IncomeSection = ({ allIncomeData }) => {
-    const filterCategory = [
-        {
-            id: crypto.randomUUID(),
-            label: "Salary",
-        },
-        {
-            id: crypto.randomUUID(),
-            label: "Outsourcing",
-        },
-        {
-            id: crypto.randomUUID(),
-            label: "Bond",
-        },
-        {
-            id: crypto.randomUUID(),
-            label: "Dividend",
-        },
-    ];
-
+const IncomeSection = ({
+    setFormData,
+    setIsForEdit,
+    //
+    allIncomeData,
+    //
+    setIsIncomeClicked,
+    setSelectedCategory,
+}) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
@@ -66,28 +57,35 @@ const IncomeSection = ({ allIncomeData }) => {
 
             <div className="p-4 divide-y">
                 {/* <!-- Row --> */}
-                {allIncomeData?.map((item) => (
+                {allIncomeData?.map((income) => (
                     <div
-                        key={item?.id}
+                        key={income?.id}
                         className="flex justify-between items-center py-2 relative group cursor-pointer"
                     >
                         <div>
                             <h3 className="text-base font-medium leading-7 text-gray-600">
-                                {item?.category}
+                                {income?.category}
                             </h3>
                             <p className="text-xs text-gray-600">
-                                {formatTheDate(item?.date)}
+                                {formatTheDate(income?.date)}
                             </p>
                         </div>
 
                         <div className="flex items-center gap-2">
                             <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
-                                BDT {item?.amount}
+                                BDT {income?.amount}
                             </p>
 
                             {/* <!-- 3 Dots --> */}
                             <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-                                <EditButton />
+                                <EditButton
+                                    onClick={() => {
+                                        setFormData(income);
+                                        setIsForEdit(true);
+                                        setIsIncomeClicked(true);
+                                        setSelectedCategory(categoryForIncome);
+                                    }}
+                                />
 
                                 <DeleteButton />
                             </div>
@@ -100,7 +98,13 @@ const IncomeSection = ({ allIncomeData }) => {
 };
 
 IncomeSection.propTypes = {
+    setFormData: PropTypes.func.isRequired,
+    setIsForEdit: PropTypes.func.isRequired,
+    //
     allIncomeData: PropTypes.array.isRequired,
+    //
+    setIsIncomeClicked: PropTypes.func.isRequired,
+    setSelectedCategory: PropTypes.func.isRequired,
 };
 
 export default IncomeSection;

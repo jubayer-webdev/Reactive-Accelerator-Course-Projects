@@ -1,5 +1,4 @@
 import ExpensesTrackerForm from "./formSubmission/ExpensesTrackerForm";
-import PropTypes from "prop-types";
 
 const ExpensesTrackerSection = ({ ...props }) => {
     return (
@@ -12,11 +11,6 @@ const ExpensesTrackerSection = ({ ...props }) => {
             <ExpensesTrackerForm {...props} />
         </div>
     );
-};
-
-ExpensesTrackerSection.propTypes = {
-    setAllExpenseData: PropTypes.func.isRequired,
-    setAllIncomeData: PropTypes.func.isRequired,
 };
 
 export default ExpensesTrackerSection;

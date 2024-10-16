@@ -1,108 +1,61 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import Input from "../../../components/shared/Input";
 import Label from "../../../components/shared/Label";
 import SelectInput from "../../../components/shared/SelectInput";
+import { categoryForExpense } from "../../../data/categoryForExpense";
+import categoryForIncome from "../../../data/categoryForIncome";
 
 const ExpensesTrackerForm = ({
-    setAllExpenseData,
-    setAllIncomeData,
-    setTotalIncome,
-    setTotalExpense,
+    formData,
+    setFormData,
+    handleSubmit,
+    //
+    isIncomeClicked,
+    setIsIncomeClicked,
+    //
+    selectedCategory,
+    setSelectedCategory,
 }) => {
-    const categoryForExpense = [
-        { id: crypto.randomUUID(), label: "Select Category", value: "" },
-        { id: crypto.randomUUID(), label: "Education", value: "Education" },
-        { id: crypto.randomUUID(), label: "Food", value: "Food" },
-        { id: crypto.randomUUID(), label: "Health", value: "Health" },
-        { id: crypto.randomUUID(), label: "Bill", value: "Bill" },
-        { id: crypto.randomUUID(), label: "Insurance", value: "Insurance" },
-        { id: crypto.randomUUID(), label: "Tax", value: "Tax" },
-        { id: crypto.randomUUID(), label: "Transport", value: "Transport" },
-        { id: crypto.randomUUID(), label: "Telephone", value: "Telephone" },
-    ];
-    const categoryForIncome = [
-        { id: crypto.randomUUID(), label: "Select Category", value: "" },
-        { id: crypto.randomUUID(), label: "Salary", value: "Salary" },
-        { id: crypto.randomUUID(), label: "Outsourcing", value: "Outsourcing" },
-        { id: crypto.randomUUID(), label: "Bond", value: "Bond" },
-        { id: crypto.randomUUID(), label: "Dividend", value: "Dividend" },
-    ];
-
-    const [isExpenseClicked, setIsExpenseClicked] = useState(true);
-    const [isIncomeClicked, setIsIncomeClicked] = useState(false);
-    const [selectedCategory, setSelectedCategory] =
-        useState(categoryForExpense);
-
-    const [formData, setFormData] = useState({
-        id: crypto.randomUUID(),
-        category: "",
-        amount: "",
-        date: "",
-    });
-
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         setFormData((prevFromData) => ({ ...prevFromData, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-
-        if (isExpenseClicked) {
-            setAllExpenseData((prevAllExpenseData) => [
-                ...prevAllExpenseData,
-                formData,
-            ]);
-            setTotalExpense(
-                (prevTotalExpense) =>
-                    prevTotalExpense + parseFloat(formData?.amount)
-            );
-        } else {
-            setAllIncomeData((prevAllIncomeData) => [
-                ...prevAllIncomeData,
-                formData,
-            ]);
-            setTotalIncome(
-                (prevTotalIncome) =>
-                    prevTotalIncome + parseFloat(formData?.amount)
-            );
-        }
-
-        setFormData({
-            id: crypto.randomUUID(),
-            category: "",
-            amount: "",
-            date: "",
-        });
-    };
-
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e, isIncomeClicked)}>
             <div className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6">
                 <button
                     className={`cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 ${
-                        isExpenseClicked ? "active" : ""
+                        !isIncomeClicked ? "active" : ""
                     }`}
                     onClick={() => {
-                        setIsExpenseClicked(true);
                         setIsIncomeClicked(false);
                         // console.log("Expense clicked");
+                        setFormData({
+                            id: crypto.randomUUID(),
+                            category: "",
+                            amount: "",
+                            date: "",
+                        });
                         setSelectedCategory(categoryForExpense);
                     }}
-                    disabled={isExpenseClicked}
+                    disabled={!isIncomeClicked}
                 >
                     Expense
                 </button>
+                
                 <button
                     className={`cursor-pointer text-center flex-1 px-4 py-2 hover:bg-slate-50 hover:text-slate-900 ${
                         isIncomeClicked ? "active" : ""
                     }`}
                     onClick={() => {
-                        setIsExpenseClicked(false);
                         setIsIncomeClicked(true);
+                        setFormData({
+                            id: crypto.randomUUID(),
+                            category: "",
+                            amount: "",
+                            date: "",
+                        });
                         setSelectedCategory(categoryForIncome);
                     }}
                     disabled={isIncomeClicked}
@@ -178,10 +131,15 @@ const ExpensesTrackerForm = ({
 };
 
 ExpensesTrackerForm.propTypes = {
-    setAllExpenseData: PropTypes.func.isRequired,
-    setAllIncomeData: PropTypes.func.isRequired,
-    setTotalIncome: PropTypes.func.isRequired,
-    setTotalExpense: PropTypes.func.isRequired,
+    formData: PropTypes.object.isRequired,
+    setFormData: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    // 
+    isIncomeClicked: PropTypes.bool.isRequired,
+    setIsIncomeClicked: PropTypes.func.isRequired,
+    // 
+    selectedCategory: PropTypes.array.isRequired,
+    setSelectedCategory: PropTypes.func.isRequired,
 };
 
 export default ExpensesTrackerForm;

@@ -5,24 +5,19 @@ import FilterComponent from "../../components/filter/FilterComponent";
 import ExpenseIcon from "../../components/svg/ExpenseIcon";
 import EditButton from "../../components/buttons/EditButton";
 import DeleteButton from "../../components/buttons/DeleteButton";
-import formatTheDate from "../../healper/formatTheDate";
+import formatTheDate from "../../helper/formatTheDate";
+import filterCategoryExpense from "../../data/filterCategoryExpense";
+import { categoryForExpense } from "../../data/categoryForExpense";
 
-const ExpenseSection = ({ allExpenseData }) => {
-    const filterCategory = [
-        {
-            id: crypto.randomUUID(),
-            label: "Education",
-        },
-        {
-            id: crypto.randomUUID(),
-            label: "Food",
-        },
-        {
-            id: crypto.randomUUID(),
-            label: "Health",
-        },
-    ];
-
+const ExpenseSection = ({
+    setFormData,
+    setIsForEdit,
+    //
+    allExpenseData,
+    //
+    setIsIncomeClicked,
+    setSelectedCategory,
+}) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
@@ -56,7 +51,7 @@ const ExpenseSection = ({ allExpenseData }) => {
                     <FilterComponent
                         clickedSortOrFilter={clickedSortOrFilter}
                         setClickedSortOrFilter={setClickedSortOrFilter}
-                        filterCategory={filterCategory}
+                        filterCategory={filterCategoryExpense}
                     />
                 </div>
                 {/* <!-- Sorting and Filtering Column Ends --> */}
@@ -83,7 +78,14 @@ const ExpenseSection = ({ allExpenseData }) => {
 
                             {/* <!-- 3 Dots --> */}
                             <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-                                <EditButton />
+                                <EditButton
+                                    onClick={() => {
+                                        setFormData(expense);
+                                        setIsForEdit(true);
+                                        setIsIncomeClicked(false);
+                                        setSelectedCategory(categoryForExpense);
+                                    }}
+                                />
 
                                 <DeleteButton />
                             </div>
@@ -96,7 +98,13 @@ const ExpenseSection = ({ allExpenseData }) => {
 };
 
 ExpenseSection.propTypes = {
+    setFormData: PropTypesCheck.func.isRequired,
+    setIsForEdit: PropTypesCheck.func.isRequired,
+    // 
     allExpenseData: PropTypesCheck.array.isRequired,
+    // 
+    setIsIncomeClicked: PropTypesCheck.func.isRequired,
+    setSelectedCategory: PropTypesCheck.func.isRequired,
 };
 
 export default ExpenseSection;
