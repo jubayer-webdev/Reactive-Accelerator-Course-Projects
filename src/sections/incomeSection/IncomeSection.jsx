@@ -21,13 +21,15 @@ const IncomeSection = ({
     setIsIncomeClicked,
     setSelectedCategory,
     //
-    handleDelete
+    showDeleteModal,
+    setShowDeleteModal,
+    handleDelete,
 }) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
     });
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    // const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteIncomeItem, setDeleteIncomeItem] = useState(null);
 
     return (
@@ -113,7 +115,10 @@ const IncomeSection = ({
 
                                     <DeleteButton
                                         onClick={() => {
-                                            setShowDeleteModal((prv) => !prv);
+                                            setShowDeleteModal(() => ({
+                                                showExpenseDeleteModal: false,
+                                                showIncomeDeleteModal: true,
+                                            }));
                                             setDeleteIncomeItem(income);
                                         }}
                                     />
@@ -123,9 +128,14 @@ const IncomeSection = ({
                     ))
                 )}
                 {/* //!Delete Modal */}
-                {showDeleteModal && (
+                {showDeleteModal?.showIncomeDeleteModal && (
                     <DeleteModal
-                        setShowDeleteModal={setShowDeleteModal}
+                        closeDeleteModal={() =>
+                            setShowDeleteModal((prev) => ({
+                                showExpenseDeleteModal: false,
+                                showIncomeDeleteModal: false,
+                            }))
+                        }
                         handleDelete={handleDelete}
                         deleteItem={deleteIncomeItem}
                     />

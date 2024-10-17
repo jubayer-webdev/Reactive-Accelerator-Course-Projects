@@ -20,13 +20,15 @@ const ExpenseSection = ({
     setIsIncomeClicked,
     setSelectedCategory,
     //
+    showDeleteModal,
+    setShowDeleteModal,
     handleDelete,
 }) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
     });
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    // const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteExpenseItem, setDeleteExpenseItem] = useState(null);
 
     return (
@@ -110,7 +112,10 @@ const ExpenseSection = ({
 
                                     <DeleteButton
                                         onClick={() => {
-                                            setShowDeleteModal((prv) => !prv);
+                                            setShowDeleteModal(() => ({
+                                                showExpenseDeleteModal: true,
+                                                showIncomeDeleteModal: false,
+                                            }));
                                             setDeleteExpenseItem(expense);
                                         }}
                                     />
@@ -120,9 +125,14 @@ const ExpenseSection = ({
                     ))
                 )}
                 {/* //! Delete Modal */}
-                {showDeleteModal && (
+                {showDeleteModal?.showExpenseDeleteModal && (
                     <DeleteModal
-                        setShowDeleteModal={setShowDeleteModal}
+                        closeDeleteModal={() =>
+                            setShowDeleteModal(() => ({
+                                showExpenseDeleteModal: false,
+                                showIncomeDeleteModal: false,
+                            }))
+                        }
                         handleDelete={handleDelete}
                         deleteItem={deleteExpenseItem}
                         fromExpense={true}

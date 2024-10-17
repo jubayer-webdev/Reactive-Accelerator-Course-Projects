@@ -1,11 +1,11 @@
 const DeleteModal = ({
-    setShowDeleteModal,
+    closeDeleteModal,
     handleDelete,
     deleteItem,
     fromExpense = false,
 }) => {
     const handleClickOutside = (event) => {
-        setShowDeleteModal(false);
+        closeDeleteModal();
     };
 
     // Prevent modal from closing when clicking inside the modal content
@@ -15,12 +15,12 @@ const DeleteModal = ({
 
     return (
         <div
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 border-4"
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
             onClick={handleClickOutside}
         >
             <div
                 className="w-96 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
-                onClick={handleModalClick} // Prevent click inside modal from closing it
+                onClick={handleModalClick}
             >
                 <h3 className="text-xl font-medium leading-6 text-gray-900">
                     Are you sure you want to delete this item?
@@ -35,7 +35,8 @@ const DeleteModal = ({
                     <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-neutral-400 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
-                        onClick={() => setShowDeleteModal(false)}
+                        // onClick={() => setShowDeleteModal(false)}
+                        onClick={closeDeleteModal}
                     >
                         Cancel
                     </button>
@@ -44,7 +45,8 @@ const DeleteModal = ({
                         className="inline-flex justify-center rounded-md border border-transparent bg-red-400 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                         onClick={() => {
                             handleDelete({ deleteItem, fromExpense });
-                            setShowDeleteModal(false);
+                            // setShowDeleteModal(false);
+                            closeDeleteModal();
                         }}
                     >
                         Yes, Delete It!

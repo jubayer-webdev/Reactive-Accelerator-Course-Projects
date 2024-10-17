@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import ExpenseSection from "../expenseSection/ExpenseSection";
 import IncomeSection from "../incomeSection/IncomeSection";
 import BalanceCalculation from "./balance/BalanceCalculation";
+import { useState } from "react";
 
 // HomePage -> BalanceSection
 const BalanceSection = ({
@@ -21,6 +22,11 @@ const BalanceSection = ({
     //
     handleDelete,
 }) => {
+    const [showDeleteModal, setShowDeleteModal] = useState({
+        showExpenseDeleteModal: false,
+        showIncomeDeleteModal: false,
+    });
+
     return (
         // <!-- Right Column -->
         <div className="lg:col-span-2">
@@ -42,6 +48,8 @@ const BalanceSection = ({
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
                     //
+                    showDeleteModal={showDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
                     handleDelete={handleDelete}
                 />
                 <ExpenseSection
@@ -54,6 +62,8 @@ const BalanceSection = ({
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
                     //
+                    showDeleteModal={showDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
                     handleDelete={handleDelete}
                 />
             </div>
