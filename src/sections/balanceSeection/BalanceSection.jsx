@@ -18,6 +18,8 @@ const BalanceSection = ({
     //
     totalIncome,
     totalExpense,
+    //
+    handleDelete,
 }) => {
     return (
         // <!-- Right Column -->
@@ -39,6 +41,8 @@ const BalanceSection = ({
                     //
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
+                    //
+                    handleDelete={handleDelete}
                 />
                 <ExpenseSection
                     setFormData={setFormData}
@@ -49,6 +53,8 @@ const BalanceSection = ({
                     //
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
+                    //
+                    handleDelete={handleDelete}
                 />
             </div>
         </div>

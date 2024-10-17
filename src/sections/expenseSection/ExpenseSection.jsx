@@ -19,12 +19,15 @@ const ExpenseSection = ({
     //
     setIsIncomeClicked,
     setSelectedCategory,
+    //
+    handleDelete,
 }) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
     });
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteExpenseItem, setDeleteExpenseItem] = useState(null);
 
     return (
         // <!-- Expense -->
@@ -66,48 +69,65 @@ const ExpenseSection = ({
                 {/* <!-- Sorting and Filtering Column Ends --> */}
             </div>
 
-            {/* //! Delete Modal */}
-            {showDeleteModal && (
-                <DeleteModal setShowDeleteModal={setShowDeleteModal} />
-            )}
-
             <div className="p-4 divide-y">
-                {allExpenseData?.all?.map((expense) => (
-                    <div
-                        key={expense?.id}
-                        className="flex justify-between items-center py-2 relative group cursor-pointer"
-                    >
-                        <div>
-                            <h3 className="text-base font-medium leading-7 text-gray-600">
-                                {expense?.category}
-                            </h3>
-                            <p className="text-xs text-gray-600">
-                                {formatTheDate(expense?.date)}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
-                                BDT {expense?.amount}
-                            </p>
+                {allExpenseData?.all?.length < 1 ? (
+                    <div>
+                        <h3 className="text-xl font-semibold leading-7 text-gray-800 animate-pulse">
+                            Expense List Empty.
+                        </h3>
+                    </div>
+                ) : (
+                    allExpenseData?.all?.map((expense) => (
+                        <div
+                            key={expense?.id}
+                            className="flex justify-between items-center py-2 relative group cursor-pointer"
+                        >
+                            <div>
+                                <h3 className="text-base font-medium leading-7 text-gray-600">
+                                    {expense?.category}
+                                </h3>
+                                <p className="text-xs text-gray-600">
+                                    {formatTheDate(expense?.date)}
+                                </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
+                                    BDT {expense?.amount}
+                                </p>
 
-                            {/* <!-- 3 Dots --> */}
-                            <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-                                <EditButton
-                                    onClick={() => {
-                                        setFormData(expense);
-                                        setIsForEdit(true);
-                                        setIsIncomeClicked(false);
-                                        setSelectedCategory(categoryForExpense);
-                                    }}
-                                />
+                                {/* <!-- 3 Dots --> */}
+                                <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
+                                    <EditButton
+                                        onClick={() => {
+                                            setFormData(expense);
+                                            setIsForEdit(true);
+                                            setIsIncomeClicked(false);
+                                            setSelectedCategory(
+                                                categoryForExpense
+                                            );
+                                        }}
+                                    />
 
-                                <DeleteButton
-                                    setShowDeleteModal={setShowDeleteModal}
-                                />
+                                    <DeleteButton
+                                        onClick={() => {
+                                            setShowDeleteModal((prv) => !prv);
+                                            setDeleteExpenseItem(expense);
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                )}
+                {/* //! Delete Modal */}
+                {showDeleteModal && (
+                    <DeleteModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        handleDelete={handleDelete}
+                        deleteItem={deleteExpenseItem}
+                        fromExpense={true}
+                    />
+                )}
             </div>
         </div>
     );

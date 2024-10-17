@@ -60,13 +60,30 @@ const HomePage = () => {
                 return income;
             }
         });
-        console.log("🚀 ~ updatedIncomes ~ updatedIncomes:", updatedIncomes);
+        // console.log("🚀 ~ updatedIncomes ~ updatedIncomes:", updatedIncomes);
 
         setAllIncomeData({
             all: updatedIncomes,
             store: updatedIncomes,
         });
         setTotalIncome(totalIncome);
+    };
+
+    // Function to delete a item
+    const handleDelete = ({ deleteItem = null, fromExpense = false } = {}) => {
+        if (fromExpense) {
+            const remainExpenses = allExpenseData?.all?.filter(
+                (expense) => expense?.id !== deleteItem?.id
+            );
+            setAllExpenseData({ all: remainExpenses, store: remainExpenses });
+            setTotalExpense((prevTotal) => prevTotal - deleteItem?.amount);
+        } else {
+            const remainIncome = allIncomeData?.all?.filter(
+                (income) => income?.id !== deleteItem?.id
+            );
+            setAllIncomeData({ all: remainIncome, store: remainIncome });
+            setTotalIncome((prevTotal) => prevTotal - deleteItem?.amount);
+        }
     };
 
     const handleSubmit = (e, isIncomeClicked = false) => {
@@ -148,6 +165,8 @@ const HomePage = () => {
                         // balance
                         totalIncome={totalIncome}
                         totalExpense={totalExpense}
+                        //
+                        handleDelete={handleDelete}
                     />
                 </section>
             </main>

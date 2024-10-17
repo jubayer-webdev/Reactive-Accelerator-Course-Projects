@@ -1,4 +1,9 @@
-const DeleteModal = ({ setShowDeleteModal }) => {
+const DeleteModal = ({
+    setShowDeleteModal,
+    handleDelete,
+    deleteItem,
+    fromExpense = false,
+}) => {
     const handleClickOutside = (event) => {
         setShowDeleteModal(false);
     };
@@ -10,7 +15,7 @@ const DeleteModal = ({ setShowDeleteModal }) => {
 
     return (
         <div
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 border-4"
             onClick={handleClickOutside}
         >
             <div
@@ -37,7 +42,10 @@ const DeleteModal = ({ setShowDeleteModal }) => {
                     <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-red-400 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                        // onClick={handleDelete}
+                        onClick={() => {
+                            handleDelete({ deleteItem, fromExpense });
+                            setShowDeleteModal(false);
+                        }}
                     >
                         Yes, Delete It!
                     </button>

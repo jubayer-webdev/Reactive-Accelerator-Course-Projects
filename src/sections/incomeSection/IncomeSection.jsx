@@ -21,14 +21,14 @@ const IncomeSection = ({
     setIsIncomeClicked,
     setSelectedCategory,
     //
-    showSortingOrFilterModal,
-    setShowSortingOrFilterModal,
+    handleDelete
 }) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
     });
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteIncomeItem, setDeleteIncomeItem] = useState(null);
 
     return (
         // <!-- Income -->
@@ -70,50 +70,66 @@ const IncomeSection = ({
                 {/* <!-- Sorting and Filtering Column Ends --> */}
             </div>
 
-            {/* //!Delete Modal */}
-            {showDeleteModal && (
-                <DeleteModal setShowDeleteModal={setShowDeleteModal} />
-            )}
-
             <div className="p-4 divide-y">
                 {/* <!-- Row --> */}
-                {allIncomeData?.all?.map((income) => (
-                    <div
-                        key={income?.id}
-                        className="flex justify-between items-center py-2 relative group cursor-pointer"
-                    >
-                        <div>
-                            <h3 className="text-base font-medium leading-7 text-gray-600">
-                                {income?.category}
-                            </h3>
-                            <p className="text-xs text-gray-600">
-                                {formatTheDate(income?.date)}
-                            </p>
-                        </div>
+                {allIncomeData?.all?.length < 1 ? (
+                    <div>
+                        <h3 className="text-xl font-semibold leading-7 text-gray-800 animate-pulse">
+                            Income List Empty.
+                        </h3>
+                    </div>
+                ) : (
+                    allIncomeData?.all?.map((income) => (
+                        <div
+                            key={income?.id}
+                            className="flex justify-between items-center py-2 relative group cursor-pointer"
+                        >
+                            <div>
+                                <h3 className="text-base font-medium leading-7 text-gray-600">
+                                    {income?.category}
+                                </h3>
+                                <p className="text-xs text-gray-600">
+                                    {formatTheDate(income?.date)}
+                                </p>
+                            </div>
 
-                        <div className="flex items-center gap-2">
-                            <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
-                                BDT {income?.amount}
-                            </p>
+                            <div className="flex items-center gap-2">
+                                <p className="text-base font-semibold text-gray-600 transition-all group-hover:-translate-x-14">
+                                    BDT {income?.amount}
+                                </p>
 
-                            {/* <!-- 3 Dots --> */}
-                            <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-                                <EditButton
-                                    onClick={() => {
-                                        setFormData(income);
-                                        setIsForEdit(true);
-                                        setIsIncomeClicked(true);
-                                        setSelectedCategory(categoryForIncome);
-                                    }}
-                                />
+                                {/* <!-- 3 Dots --> */}
+                                <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
+                                    <EditButton
+                                        onClick={() => {
+                                            setFormData(income);
+                                            setIsForEdit(true);
+                                            setIsIncomeClicked(true);
+                                            setSelectedCategory(
+                                                categoryForIncome
+                                            );
+                                        }}
+                                    />
 
-                                <DeleteButton
-                                    setShowDeleteModal={setShowDeleteModal}
-                                />
+                                    <DeleteButton
+                                        onClick={() => {
+                                            setShowDeleteModal((prv) => !prv);
+                                            setDeleteIncomeItem(income);
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                )}
+                {/* //!Delete Modal */}
+                {showDeleteModal && (
+                    <DeleteModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        handleDelete={handleDelete}
+                        deleteItem={deleteIncomeItem}
+                    />
+                )}
             </div>
         </div>
     );
