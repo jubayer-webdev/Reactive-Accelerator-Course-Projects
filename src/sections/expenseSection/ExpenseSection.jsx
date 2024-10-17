@@ -8,12 +8,14 @@ import DeleteButton from "../../components/buttons/DeleteButton";
 import formatTheDate from "../../helper/formatTheDate";
 import filterCategoryExpense from "../../data/filterCategoryExpense";
 import { categoryForExpense } from "../../data/categoryForExpense";
+import DeleteModal from "../../components/modals/DeleteModal";
 
 const ExpenseSection = ({
     setFormData,
     setIsForEdit,
     //
     allExpenseData,
+    setAllExpenseData,
     //
     setIsIncomeClicked,
     setSelectedCategory,
@@ -22,6 +24,7 @@ const ExpenseSection = ({
         isClickedSort: false,
         isClickedFilter: false,
     });
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     return (
         // <!-- Expense -->
@@ -45,6 +48,9 @@ const ExpenseSection = ({
                     <SortingComponent
                         clickedSortOrFilter={clickedSortOrFilter}
                         setClickedSortOrFilter={setClickedSortOrFilter}
+                        //
+                        allData={allExpenseData}
+                        setAllData={setAllExpenseData}
                     />
 
                     {/* <!-- Filtering --> */}
@@ -52,13 +58,21 @@ const ExpenseSection = ({
                         clickedSortOrFilter={clickedSortOrFilter}
                         setClickedSortOrFilter={setClickedSortOrFilter}
                         filterCategory={filterCategoryExpense}
+                        //
+                        allData={allExpenseData}
+                        setAllData={setAllExpenseData}
                     />
                 </div>
                 {/* <!-- Sorting and Filtering Column Ends --> */}
             </div>
 
+            {/* //! Delete Modal */}
+            {showDeleteModal && (
+                <DeleteModal setShowDeleteModal={setShowDeleteModal} />
+            )}
+
             <div className="p-4 divide-y">
-                {allExpenseData?.map((expense) => (
+                {allExpenseData?.all?.map((expense) => (
                     <div
                         key={expense?.id}
                         className="flex justify-between items-center py-2 relative group cursor-pointer"
@@ -87,7 +101,9 @@ const ExpenseSection = ({
                                     }}
                                 />
 
-                                <DeleteButton />
+                                <DeleteButton
+                                    setShowDeleteModal={setShowDeleteModal}
+                                />
                             </div>
                         </div>
                     </div>
@@ -100,9 +116,9 @@ const ExpenseSection = ({
 ExpenseSection.propTypes = {
     setFormData: PropTypesCheck.func.isRequired,
     setIsForEdit: PropTypesCheck.func.isRequired,
-    // 
-    allExpenseData: PropTypesCheck.array.isRequired,
-    // 
+    //
+    allExpenseData: PropTypesCheck.object.isRequired,
+    //
     setIsIncomeClicked: PropTypesCheck.func.isRequired,
     setSelectedCategory: PropTypesCheck.func.isRequired,
 };

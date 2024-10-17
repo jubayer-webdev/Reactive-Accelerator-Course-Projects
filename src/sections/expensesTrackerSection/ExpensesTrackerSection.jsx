@@ -1,5 +1,6 @@
 import ExpensesTrackerForm from "./formSubmission/ExpensesTrackerForm";
 
+// HomePage -> ExpensesTrackerSection
 const ExpensesTrackerSection = ({ ...props }) => {
     return (
         // <!-- Submission Form -->

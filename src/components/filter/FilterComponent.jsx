@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import FilterIcon from "../svg/FilterIcon";
 import FilterModal from "../modals/FilterModal";
@@ -6,7 +7,12 @@ const FilterComponent = ({
     clickedSortOrFilter,
     setClickedSortOrFilter,
     filterCategory,
+    //
+    allData,
+    setAllData,
 }) => {
+    const [checkedState, setCheckedState] = useState({});
+
     return (
         // <!-- Filtering -->
         <div className="relative inline-block text-left">
@@ -30,7 +36,14 @@ const FilterComponent = ({
             </div>
 
             {clickedSortOrFilter?.isClickedFilter && (
-                <FilterModal filterCategory={filterCategory} />
+                <FilterModal
+                    filterCategory={filterCategory}
+                    allData={allData}
+                    setAllData={setAllData}
+                    //
+                    checkedState={checkedState}
+                    setCheckedState={setCheckedState}
+                />
             )}
         </div>
     );
@@ -40,6 +53,7 @@ FilterComponent.propTypes = {
     clickedSortOrFilter: PropTypes.object.isRequired,
     setClickedSortOrFilter: PropTypes.func.isRequired,
     filterCategory: PropTypes.array.isRequired,
+    //
 };
 
 export default FilterComponent;

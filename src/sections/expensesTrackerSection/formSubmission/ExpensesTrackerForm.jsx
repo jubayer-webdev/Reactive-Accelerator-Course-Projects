@@ -5,6 +5,7 @@ import SelectInput from "../../../components/shared/SelectInput";
 import { categoryForExpense } from "../../../data/categoryForExpense";
 import categoryForIncome from "../../../data/categoryForIncome";
 
+// HomePage -> ExpensesTrackerSection -> ExpensesTrackerForm
 const ExpensesTrackerForm = ({
     formData,
     setFormData,

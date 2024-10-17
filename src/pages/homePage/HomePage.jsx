@@ -3,49 +3,25 @@ import BalanceSection from "../../sections/balanceSeection/BalanceSection";
 import ExpensesTrackerSection from "../../sections/expensesTrackerSection/ExpensesTrackerSection";
 import NavbarSection from "../../sections/navbarSection/NavbarSection";
 import { categoryForExpense } from "../../data/categoryForExpense";
+import { allIncome } from "../../data/allIncome";
+import { allExpense } from "../../data/allExpense";
 
 const HomePage = () => {
-    const [allExpenseData, setAllExpenseData] = useState([
-        {
-            id: crypto.randomUUID(),
-            category: "Education",
-            amount: "1000",
-            date: "2024-10-16",
-        },
-        {
-            id: crypto.randomUUID(),
-            category: "Health",
-            amount: "1000",
-            date: "2024-10-25",
-        },
-        {
-            id: crypto.randomUUID(),
-            category: "Food",
-            amount: "1000",
-            date: "2024-10-16",
-        },
-    ]);
-    const [allIncomeData, setAllIncomeData] = useState([
-        {
-            id: crypto.randomUUID(),
-            category: "Outsourcing",
-            amount: "1000",
-            date: "2024-10-16",
-        },
-        {
-            id: crypto.randomUUID(),
-            category: "Salary",
-            amount: "1000",
-            date: "2024-08-31",
-        },
-    ]);
-    
+    const [allExpenseData, setAllExpenseData] = useState({
+        all: allExpense,
+        store: allExpense,
+    });
+    const [allIncomeData, setAllIncomeData] = useState({
+        all: allIncome,
+        store: allIncome,
+    });
+
     const [isIncomeClicked, setIsIncomeClicked] = useState(false);
     const [selectedCategory, setSelectedCategory] =
         useState(categoryForExpense);
 
-    const [totalIncome, setTotalIncome] = useState(2000);
-    const [totalExpense, setTotalExpense] = useState(3000);
+    const [totalIncome, setTotalIncome] = useState(70000);
+    const [totalExpense, setTotalExpense] = useState(80000);
 
     const [formData, setFormData] = useState({
         id: crypto.randomUUID(),
@@ -58,7 +34,7 @@ const HomePage = () => {
     // Function to update an existing expense
     const updateExistingExpense = () => {
         let totalExpense = 0;
-        const updatedExpenses = allExpenseData?.map((expense) => {
+        const updatedExpenses = allExpenseData?.all?.map((expense) => {
             if (expense?.id === formData?.id) {
                 totalExpense += parseFloat(formData?.amount);
                 return formData;
@@ -68,14 +44,14 @@ const HomePage = () => {
             }
         });
 
-        setAllExpenseData(updatedExpenses);
+        setAllExpenseData({ all: updatedExpenses, store: updatedExpenses });
         setTotalExpense(totalExpense);
     };
 
     // Function to update an existing income
     const updateExistingIncome = () => {
         let totalIncome = 0;
-        const updatedIncomes = allIncomeData?.map((income) => {
+        const updatedIncomes = allIncomeData?.all?.map((income) => {
             if (income?.id === formData?.id) {
                 totalIncome += parseFloat(formData?.amount);
                 return formData;
@@ -84,8 +60,12 @@ const HomePage = () => {
                 return income;
             }
         });
+        console.log("🚀 ~ updatedIncomes ~ updatedIncomes:", updatedIncomes);
 
-        setAllIncomeData(updatedIncomes);
+        setAllIncomeData({
+            all: updatedIncomes,
+            store: updatedIncomes,
+        });
         setTotalIncome(totalIncome);
     };
 
@@ -97,10 +77,11 @@ const HomePage = () => {
             if (isForEdit) {
                 updateExistingIncome();
             } else {
-                setAllIncomeData((prevAllIncomeData) => [
-                    ...prevAllIncomeData,
-                    formData,
-                ]);
+                setAllIncomeData((prevIncome) => ({
+                    ...prevIncome,
+                    all: [...prevIncome.all, formData],
+                    store: [...prevIncome.store, formData],
+                }));
                 setTotalIncome(
                     (prevTotalIncome) =>
                         prevTotalIncome + parseFloat(formData?.amount)
@@ -110,10 +91,11 @@ const HomePage = () => {
             if (isForEdit) {
                 updateExistingExpense();
             } else {
-                setAllExpenseData((prevAllExpenseData) => [
-                    ...prevAllExpenseData,
-                    formData,
-                ]);
+                setAllExpenseData((prevExpense) => ({
+                    ...prevExpense,
+                    all: [...prevExpense?.all, formData],
+                    store: [...prevExpense?.store, formData],
+                }));
                 setTotalExpense(
                     (prevTotalExpense) =>
                         prevTotalExpense + parseFloat(formData?.amount)
@@ -145,7 +127,7 @@ const HomePage = () => {
                         //
                         isIncomeClicked={isIncomeClicked}
                         setIsIncomeClicked={setIsIncomeClicked}
-                        // 
+                        //
                         selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
                     />
@@ -157,8 +139,10 @@ const HomePage = () => {
                         setIsForEdit={setIsForEdit}
                         //
                         allExpenseData={allExpenseData}
+                        setAllExpenseData={setAllExpenseData}
                         allIncomeData={allIncomeData}
-                        // 
+                        setAllIncomeData={setAllIncomeData}
+                        //
                         setIsIncomeClicked={setIsIncomeClicked}
                         setSelectedCategory={setSelectedCategory}
                         // balance

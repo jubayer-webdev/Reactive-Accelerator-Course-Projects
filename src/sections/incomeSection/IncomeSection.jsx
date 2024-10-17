@@ -8,20 +8,27 @@ import IncomeIcon from "../../components/svg/IncomeIcon";
 import formatTheDate from "../../helper/formatTheDate";
 import filterCategory from "../../data/filterCategoryIncome";
 import categoryForIncome from "../../data/categoryForIncome";
+import DeleteModal from "../../components/modals/DeleteModal";
 
+// HomePage -> BalanceSection -> IncomeSection
 const IncomeSection = ({
     setFormData,
     setIsForEdit,
     //
     allIncomeData,
+    setAllIncomeData,
     //
     setIsIncomeClicked,
     setSelectedCategory,
+    //
+    showSortingOrFilterModal,
+    setShowSortingOrFilterModal,
 }) => {
     const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
         isClickedSort: false,
         isClickedFilter: false,
     });
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     return (
         // <!-- Income -->
@@ -39,11 +46,15 @@ const IncomeSection = ({
                     </div>
                 </div>
 
+                {/* <!-- Sorting and Filtering Column --> */}
                 <div>
                     {/* <!-- Sorting --> */}
                     <SortingComponent
                         clickedSortOrFilter={clickedSortOrFilter}
                         setClickedSortOrFilter={setClickedSortOrFilter}
+                        //
+                        allData={allIncomeData}
+                        setAllData={setAllIncomeData}
                     />
 
                     {/* <!-- Filtering --> */}
@@ -51,13 +62,22 @@ const IncomeSection = ({
                         clickedSortOrFilter={clickedSortOrFilter}
                         setClickedSortOrFilter={setClickedSortOrFilter}
                         filterCategory={filterCategory}
+                        //
+                        allData={allIncomeData}
+                        setAllData={setAllIncomeData}
                     />
                 </div>
+                {/* <!-- Sorting and Filtering Column Ends --> */}
             </div>
+
+            {/* //!Delete Modal */}
+            {showDeleteModal && (
+                <DeleteModal setShowDeleteModal={setShowDeleteModal} />
+            )}
 
             <div className="p-4 divide-y">
                 {/* <!-- Row --> */}
-                {allIncomeData?.map((income) => (
+                {allIncomeData?.all?.map((income) => (
                     <div
                         key={income?.id}
                         className="flex justify-between items-center py-2 relative group cursor-pointer"
@@ -87,7 +107,9 @@ const IncomeSection = ({
                                     }}
                                 />
 
-                                <DeleteButton />
+                                <DeleteButton
+                                    setShowDeleteModal={setShowDeleteModal}
+                                />
                             </div>
                         </div>
                     </div>
@@ -101,7 +123,7 @@ IncomeSection.propTypes = {
     setFormData: PropTypes.func.isRequired,
     setIsForEdit: PropTypes.func.isRequired,
     //
-    allIncomeData: PropTypes.array.isRequired,
+    allIncomeData: PropTypes.object.isRequired,
     //
     setIsIncomeClicked: PropTypes.func.isRequired,
     setSelectedCategory: PropTypes.func.isRequired,

@@ -2,10 +2,16 @@ import PropTypes from "prop-types";
 import SortingIcon from "../svg/SortingIcon";
 import SortModal from "../modals/SortModal";
 
-const SortingComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
+const SortingComponent = ({
+    clickedSortOrFilter,
+    setClickedSortOrFilter,
+    //
+    allData,
+    setAllData,
+}) => {
     return (
         // <!-- Sorting -->
-        <div className="relative inline-block text-left">
+        <div className="mr-1 relative inline-block text-left">
             <div>
                 <button
                     type="button"
@@ -24,7 +30,9 @@ const SortingComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
                 </button>
             </div>
 
-            {clickedSortOrFilter?.isClickedSort && <SortModal />}
+            {clickedSortOrFilter?.isClickedSort && (
+                <SortModal allData={allData} setAllData={setAllData} />
+            )}
         </div>
     );
 };
@@ -32,6 +40,9 @@ const SortingComponent = ({ clickedSortOrFilter, setClickedSortOrFilter }) => {
 SortingComponent.propTypes = {
     clickedSortOrFilter: PropTypes.object.isRequired,
     setClickedSortOrFilter: PropTypes.func.isRequired,
+    //
+    allData: PropTypes.object.isRequired,
+    setAllData: PropTypes.func.isRequired,
 };
 
 export default SortingComponent;

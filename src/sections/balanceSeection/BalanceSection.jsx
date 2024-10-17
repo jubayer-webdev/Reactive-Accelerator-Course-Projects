@@ -3,12 +3,15 @@ import ExpenseSection from "../expenseSection/ExpenseSection";
 import IncomeSection from "../incomeSection/IncomeSection";
 import BalanceCalculation from "./balance/BalanceCalculation";
 
+// HomePage -> BalanceSection
 const BalanceSection = ({
     setFormData,
     setIsForEdit,
     //
     allExpenseData,
+    setAllExpenseData,
     allIncomeData,
+    setAllIncomeData,
     //
     setIsIncomeClicked,
     setSelectedCategory,
@@ -30,18 +33,20 @@ const BalanceSection = ({
                 <IncomeSection
                     setFormData={setFormData}
                     setIsForEdit={setIsForEdit}
-                    // 
+                    //
                     allIncomeData={allIncomeData}
-                    // 
+                    setAllIncomeData={setAllIncomeData}
+                    //
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
                 />
                 <ExpenseSection
                     setFormData={setFormData}
                     setIsForEdit={setIsForEdit}
-                    // 
+                    //
                     allExpenseData={allExpenseData}
-                    // 
+                    setAllExpenseData={setAllExpenseData}
+                    //
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
                 />
@@ -51,12 +56,15 @@ const BalanceSection = ({
 };
 
 BalanceSection.propTypes = {
-    allExpenseData: PropTypes.array.isRequired,
-    allIncomeData: PropTypes.array.isRequired,
-    totalIncome: PropTypes.number.isRequired,
-    totalExpense: PropTypes.number.isRequired,
     setFormData: PropTypes.func.isRequired,
     setIsForEdit: PropTypes.func.isRequired,
+    //
+    allExpenseData: PropTypes.object.isRequired,
+    allIncomeData: PropTypes.object.isRequired,
+    //
+    totalIncome: PropTypes.number.isRequired,
+    totalExpense: PropTypes.number.isRequired,
+    //
     setIsIncomeClicked: PropTypes.func.isRequired,
     setSelectedCategory: PropTypes.func.isRequired,
 };
