@@ -7,7 +7,7 @@ export let allIncome = [
     },
     {
         id: crypto.randomUUID(),
-        category: "Outsourcing",
+        category: "Bond",
         amount: "10000",
         date: "2024-10-16",
     },

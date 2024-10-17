@@ -13,7 +13,7 @@ export const allExpense = [
     },
     {
         id: crypto.randomUUID(),
-        category: "Health",
+        category: "Food",
         amount: "20000",
         date: "2024-10-25",
     },

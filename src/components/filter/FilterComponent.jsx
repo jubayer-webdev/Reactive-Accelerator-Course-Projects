@@ -4,8 +4,8 @@ import FilterIcon from "../svg/FilterIcon";
 import FilterModal from "../modals/FilterModal";
 
 const FilterComponent = ({
-    clickedSortOrFilter,
-    setClickedSortOrFilter,
+    isOpenFilterModal,
+    toggleFilterModal,
     filterCategory,
     //
     allData,
@@ -23,19 +23,13 @@ const FilterComponent = ({
                     id="filter-button"
                     aria-expanded="true"
                     aria-haspopup="true"
-                    onClick={() =>
-                        setClickedSortOrFilter({
-                            isClickedSort: false,
-                            isClickedFilter:
-                                !clickedSortOrFilter?.isClickedFilter,
-                        })
-                    }
+                    onClick={toggleFilterModal}
                 >
                     <FilterIcon />
                 </button>
             </div>
 
-            {clickedSortOrFilter?.isClickedFilter && (
+            {isOpenFilterModal && (
                 <FilterModal
                     filterCategory={filterCategory}
                     allData={allData}
@@ -50,10 +44,12 @@ const FilterComponent = ({
 };
 
 FilterComponent.propTypes = {
-    clickedSortOrFilter: PropTypes.object.isRequired,
-    setClickedSortOrFilter: PropTypes.func.isRequired,
+    isOpenFilterModal: PropTypes.bool.isRequired,
+    toggleFilterModal: PropTypes.func.isRequired,
     filterCategory: PropTypes.array.isRequired,
     //
+    allData: PropTypes.object.isRequired,
+    setAllData: PropTypes.func.isRequired,
 };
 
 export default FilterComponent;

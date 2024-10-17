@@ -21,15 +21,13 @@ const IncomeSection = ({
     setIsIncomeClicked,
     setSelectedCategory,
     //
+    clickedSortOrFilter,
+    setClickedSortOrFilter,
+    //
     showDeleteModal,
     setShowDeleteModal,
     handleDelete,
 }) => {
-    const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
-        isClickedSort: false,
-        isClickedFilter: false,
-    });
-    // const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteIncomeItem, setDeleteIncomeItem] = useState(null);
 
     return (
@@ -52,8 +50,17 @@ const IncomeSection = ({
                 <div>
                     {/* <!-- Sorting --> */}
                     <SortingComponent
-                        clickedSortOrFilter={clickedSortOrFilter}
-                        setClickedSortOrFilter={setClickedSortOrFilter}
+                        isOpenSortModal={
+                            clickedSortOrFilter?.isClickedIncomeSort
+                        }
+                        toggleSortModal={() =>
+                            setClickedSortOrFilter((prev) => ({
+                                isClickedExpenseSort: false,
+                                isClickedExpenseFilter: false,
+                                isClickedIncomeSort: !prev.isClickedIncomeSort,
+                                isClickedIncomeFilter: false,
+                            }))
+                        }
                         //
                         allData={allIncomeData}
                         setAllData={setAllIncomeData}
@@ -61,8 +68,18 @@ const IncomeSection = ({
 
                     {/* <!-- Filtering --> */}
                     <FilterComponent
-                        clickedSortOrFilter={clickedSortOrFilter}
-                        setClickedSortOrFilter={setClickedSortOrFilter}
+                        isOpenFilterModal={
+                            clickedSortOrFilter?.isClickedIncomeFilter
+                        }
+                        toggleFilterModal={() =>
+                            setClickedSortOrFilter((prev) => ({
+                                isClickedExpenseSort: false,
+                                isClickedExpenseFilter: false,
+                                isClickedIncomeSort: false,
+                                isClickedIncomeFilter:
+                                    !prev.isClickedIncomeFilter,
+                            }))
+                        }
                         filterCategory={filterCategory}
                         //
                         allData={allIncomeData}
@@ -131,13 +148,14 @@ const IncomeSection = ({
                 {showDeleteModal?.showIncomeDeleteModal && (
                     <DeleteModal
                         closeDeleteModal={() =>
-                            setShowDeleteModal((prev) => ({
+                            setShowDeleteModal(() => ({
                                 showExpenseDeleteModal: false,
                                 showIncomeDeleteModal: false,
                             }))
                         }
                         handleDelete={handleDelete}
                         deleteItem={deleteIncomeItem}
+                        fromExpense={false}
                     />
                 )}
             </div>
@@ -150,9 +168,17 @@ IncomeSection.propTypes = {
     setIsForEdit: PropTypes.func.isRequired,
     //
     allIncomeData: PropTypes.object.isRequired,
+    setAllIncomeData: PropTypes.func.isRequired,
     //
     setIsIncomeClicked: PropTypes.func.isRequired,
     setSelectedCategory: PropTypes.func.isRequired,
+    //
+    clickedSortOrFilter: PropTypes.object.isRequired,
+    setClickedSortOrFilter: PropTypes.func.isRequired,
+    //
+    showDeleteModal: PropTypes.object.isRequired,
+    setShowDeleteModal: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
 };
 
 export default IncomeSection;

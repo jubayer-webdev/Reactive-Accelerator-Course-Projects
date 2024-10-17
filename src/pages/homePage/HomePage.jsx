@@ -110,8 +110,8 @@ const HomePage = () => {
             } else {
                 setAllExpenseData((prevExpense) => ({
                     ...prevExpense,
-                    all: [...prevExpense?.all, formData],
-                    store: [...prevExpense?.store, formData],
+                    all: [...prevExpense.all, formData],
+                    store: [...prevExpense.store, formData],
                 }));
                 setTotalExpense(
                     (prevTotalExpense) =>

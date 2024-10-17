@@ -22,6 +22,13 @@ const BalanceSection = ({
     //
     handleDelete,
 }) => {
+    const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
+        isClickedExpenseSort: false,
+        isClickedExpenseFilter: false,
+        isClickedIncomeSort: false,
+        isClickedIncomeFilter: false,
+    });
+
     const [showDeleteModal, setShowDeleteModal] = useState({
         showExpenseDeleteModal: false,
         showIncomeDeleteModal: false,
@@ -48,6 +55,9 @@ const BalanceSection = ({
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
                     //
+                    clickedSortOrFilter={clickedSortOrFilter}
+                    setClickedSortOrFilter={setClickedSortOrFilter}
+                    //
                     showDeleteModal={showDeleteModal}
                     setShowDeleteModal={setShowDeleteModal}
                     handleDelete={handleDelete}
@@ -61,6 +71,10 @@ const BalanceSection = ({
                     //
                     setIsIncomeClicked={setIsIncomeClicked}
                     setSelectedCategory={setSelectedCategory}
+                    //
+                    //
+                    clickedSortOrFilter={clickedSortOrFilter}
+                    setClickedSortOrFilter={setClickedSortOrFilter}
                     //
                     showDeleteModal={showDeleteModal}
                     setShowDeleteModal={setShowDeleteModal}
@@ -76,13 +90,17 @@ BalanceSection.propTypes = {
     setIsForEdit: PropTypes.func.isRequired,
     //
     allExpenseData: PropTypes.object.isRequired,
+    setAllExpenseData: PropTypes.func.isRequired,
     allIncomeData: PropTypes.object.isRequired,
+    setAllIncomeData: PropTypes.func.isRequired,
     //
     totalIncome: PropTypes.number.isRequired,
     totalExpense: PropTypes.number.isRequired,
     //
     setIsIncomeClicked: PropTypes.func.isRequired,
     setSelectedCategory: PropTypes.func.isRequired,
+    //
+    handleDelete: PropTypes.func.isRequired,
 };
 
 export default BalanceSection;

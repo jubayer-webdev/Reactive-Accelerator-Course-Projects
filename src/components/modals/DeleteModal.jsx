@@ -1,10 +1,15 @@
+import PropTypes from "prop-types";
+
 const DeleteModal = ({
     closeDeleteModal,
     handleDelete,
     deleteItem,
-    fromExpense = false,
+    fromExpense,
 }) => {
+    // console.log("🚀 ~ fromExpense:", fromExpense);
+    // eslint-disable-next-line no-unused-vars
     const handleClickOutside = (event) => {
+        // console.log(event);
         closeDeleteModal();
     };
 
@@ -55,6 +60,13 @@ const DeleteModal = ({
             </div>
         </div>
     );
+};
+
+DeleteModal.propTypes = {
+    closeDeleteModal: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    deleteItem: PropTypes.object.isRequired,
+    fromExpense: PropTypes.bool.isRequired,
 };
 
 export default DeleteModal;

@@ -9,6 +9,7 @@ import formatTheDate from "../../helper/formatTheDate";
 import filterCategoryExpense from "../../data/filterCategoryExpense";
 import { categoryForExpense } from "../../data/categoryForExpense";
 import DeleteModal from "../../components/modals/DeleteModal";
+import PropTypes from "prop-types";
 
 const ExpenseSection = ({
     setFormData,
@@ -20,15 +21,13 @@ const ExpenseSection = ({
     setIsIncomeClicked,
     setSelectedCategory,
     //
+    clickedSortOrFilter,
+    setClickedSortOrFilter,
+    //
     showDeleteModal,
     setShowDeleteModal,
     handleDelete,
 }) => {
-    const [clickedSortOrFilter, setClickedSortOrFilter] = useState({
-        isClickedSort: false,
-        isClickedFilter: false,
-    });
-    // const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteExpenseItem, setDeleteExpenseItem] = useState(null);
 
     return (
@@ -51,8 +50,18 @@ const ExpenseSection = ({
                 <div>
                     {/* <!-- Sorting --> */}
                     <SortingComponent
-                        clickedSortOrFilter={clickedSortOrFilter}
-                        setClickedSortOrFilter={setClickedSortOrFilter}
+                        isOpenSortModal={
+                            clickedSortOrFilter?.isClickedExpenseSort
+                        }
+                        toggleSortModal={() =>
+                            setClickedSortOrFilter((prev) => ({
+                                isClickedExpenseSort:
+                                    !prev.isClickedExpenseSort,
+                                isClickedExpenseFilter: false,
+                                isClickedIncomeSort: false,
+                                isClickedIncomeFilter: false,
+                            }))
+                        }
                         //
                         allData={allExpenseData}
                         setAllData={setAllExpenseData}
@@ -60,8 +69,18 @@ const ExpenseSection = ({
 
                     {/* <!-- Filtering --> */}
                     <FilterComponent
-                        clickedSortOrFilter={clickedSortOrFilter}
-                        setClickedSortOrFilter={setClickedSortOrFilter}
+                        isOpenFilterModal={
+                            clickedSortOrFilter?.isClickedExpenseFilter
+                        }
+                        toggleFilterModal={() =>
+                            setClickedSortOrFilter((prev) => ({
+                                isClickedExpenseSort: false,
+                                isClickedExpenseFilter:
+                                    !prev.isClickedExpenseFilter,
+                                isClickedIncomeSort: false,
+                                isClickedIncomeFilter: false,
+                            }))
+                        }
                         filterCategory={filterCategoryExpense}
                         //
                         allData={allExpenseData}
@@ -135,7 +154,7 @@ const ExpenseSection = ({
                         }
                         handleDelete={handleDelete}
                         deleteItem={deleteExpenseItem}
-                        fromExpense={true}
+                        fromExpense
                     />
                 )}
             </div>
@@ -148,9 +167,17 @@ ExpenseSection.propTypes = {
     setIsForEdit: PropTypesCheck.func.isRequired,
     //
     allExpenseData: PropTypesCheck.object.isRequired,
+    setAllExpenseData: PropTypes.func.isRequired,
     //
     setIsIncomeClicked: PropTypesCheck.func.isRequired,
     setSelectedCategory: PropTypesCheck.func.isRequired,
+    //
+    clickedSortOrFilter: PropTypes.object.isRequired,
+    setClickedSortOrFilter: PropTypes.func.isRequired,
+    //
+    showDeleteModal: PropTypes.object.isRequired,
+    setShowDeleteModal: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
 };
 
 export default ExpenseSection;

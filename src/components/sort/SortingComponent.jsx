@@ -3,8 +3,8 @@ import SortingIcon from "../svg/SortingIcon";
 import SortModal from "../modals/SortModal";
 
 const SortingComponent = ({
-    clickedSortOrFilter,
-    setClickedSortOrFilter,
+    isOpenSortModal,
+    toggleSortModal,
     //
     allData,
     setAllData,
@@ -19,18 +19,13 @@ const SortingComponent = ({
                     id="menu-button"
                     aria-expanded="true"
                     aria-haspopup="true"
-                    onClick={() =>
-                        setClickedSortOrFilter({
-                            isClickedSort: !clickedSortOrFilter?.isClickedSort,
-                            isClickedFilter: false,
-                        })
-                    }
+                    onClick={toggleSortModal}
                 >
                     <SortingIcon />
                 </button>
             </div>
 
-            {clickedSortOrFilter?.isClickedSort && (
+            {isOpenSortModal && (
                 <SortModal allData={allData} setAllData={setAllData} />
             )}
         </div>
@@ -38,8 +33,8 @@ const SortingComponent = ({
 };
 
 SortingComponent.propTypes = {
-    clickedSortOrFilter: PropTypes.object.isRequired,
-    setClickedSortOrFilter: PropTypes.func.isRequired,
+    isOpenSortModal: PropTypes.bool.isRequired,
+    toggleSortModal: PropTypes.func.isRequired,
     //
     allData: PropTypes.object.isRequired,
     setAllData: PropTypes.func.isRequired,
