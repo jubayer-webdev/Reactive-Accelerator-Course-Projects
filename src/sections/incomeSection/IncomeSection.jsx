@@ -91,14 +91,14 @@ const IncomeSection = ({
 
             <div className="p-4 divide-y">
                 {/* <!-- Row --> */}
-                {allIncomeData?.all?.length < 1 ? (
+                {allIncomeData?.current?.length < 1 ? (
                     <div>
                         <h3 className="text-xl font-semibold leading-7 text-gray-800 animate-pulse">
                             Income List Empty.
                         </h3>
                     </div>
                 ) : (
-                    allIncomeData?.all?.map((income) => (
+                    allIncomeData?.current?.map((income) => (
                         <div
                             key={income?.id}
                             className="flex justify-between items-center py-2 relative group cursor-pointer"

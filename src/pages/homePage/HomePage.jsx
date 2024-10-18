@@ -8,13 +8,13 @@ import { allExpense } from "../../data/allExpense";
 
 const HomePage = () => {
     const [allExpenseData, setAllExpenseData] = useState({
-        all: allExpense,
-        store: allExpense,
+        current: allExpense,
+        dataBase: allExpense,
         isClickedLowToHigh: null,
     });
     const [allIncomeData, setAllIncomeData] = useState({
-        all: allIncome,
-        store: allIncome,
+        current: allIncome,
+        dataBase: allIncome,
         isClickedLowToHigh: null,
     });
 
@@ -36,46 +36,46 @@ const HomePage = () => {
     // Function to delete a item
     const handleDelete = ({ deleteItem = null, fromExpense = false } = {}) => {
         if (fromExpense) {
-            const remainCurrentExpenses = allExpenseData?.all?.filter(
+            const remainCurrentExpenses = allExpenseData?.current?.filter(
                 (expense) => expense?.id !== deleteItem?.id
             );
 
-            const remainDataBaseExpenses = allExpenseData?.store?.filter(
+            const remainDataBaseExpenses = allExpenseData?.dataBase?.filter(
                 (expense) => expense?.id !== deleteItem?.id
             );
 
             setAllExpenseData((preAll) => ({
                 ...preAll,
-                all: remainCurrentExpenses,
-                store: remainDataBaseExpenses,
+                current: remainCurrentExpenses,
+                dataBase: remainDataBaseExpenses,
             }));
             setTotalExpense((prevTotal) => prevTotal - deleteItem?.amount);
         } else {
-            const remainCurrentIncome = allIncomeData?.all?.filter(
+            const remainCurrentIncome = allIncomeData?.current?.filter(
                 (income) => income?.id !== deleteItem?.id
             );
 
-            const remainDataBaseIncome = allIncomeData?.store?.filter(
+            const remainDataBaseIncome = allIncomeData?.dataBase?.filter(
                 (income) => income?.id !== deleteItem?.id
             );
 
             setAllIncomeData((prevAll) => ({
                 ...prevAll,
-                all: remainCurrentIncome,
-                store: remainDataBaseIncome,
+                current: remainCurrentIncome,
+                dataBase: remainDataBaseIncome,
             }));
             setTotalIncome((prevTotal) => prevTotal - deleteItem?.amount);
         }
     };
 
     const updateDataAccordingSorting = (allData, setAllData, setTotalTaka) => {
-        const updatedCurrentData = allData?.all?.map((data) => {
+        const updatedCurrentData = allData?.current?.map((data) => {
             if (data?.id === formData?.id) return formData;
             return data;
         });
 
         let totalTaka = 0;
-        const updatedDatabaseData = allData?.store?.map((data) => {
+        const updatedDatabaseData = allData?.dataBase?.map((data) => {
             if (data?.id === formData?.id) {
                 totalTaka += parseFloat(formData?.amount);
                 return formData;
@@ -96,14 +96,14 @@ const HomePage = () => {
 
             setAllData((prevAllData) => ({
                 ...prevAllData,
-                all: updateCurrent,
-                store: updateStore,
+                current: updateCurrent,
+                dataBase: updateStore,
             }));
         } else {
             setAllData((prevAllData) => ({
                 ...prevAllData,
-                all: updatedCurrentData,
-                store: updatedDatabaseData,
+                current: updatedCurrentData,
+                dataBase: updatedDatabaseData,
             }));
         }
 
@@ -117,22 +117,22 @@ const HomePage = () => {
          */
 
         if (allData?.isClickedLowToHigh !== null) {
-            const addedNewData = [...allData.all, formData];
+            const addedNewData = [...allData.current, formData];
             const sortedData = allData?.isClickedLowToHigh
                 ? addedNewData.sort((a, b) => a?.amount - b?.amount)
                 : addedNewData.sort((a, b) => b?.amount - a?.amount);
 
             setAllData((prevAllData) => ({
                 ...prevAllData,
-                all: sortedData,
-                // store: [...prevAllData.store, formData],
-                store: sortedData,
+                current: sortedData,
+                // dataBase: [...prevAllData.dataBase, formData],
+                dataBase: sortedData,
             }));
         } else {
             setAllData((prevAllData) => ({
                 ...prevAllData,
-                all: [...prevAllData.all, formData],
-                store: [...prevAllData.store, formData],
+                current: [...prevAllData.current, formData],
+                dataBase: [...prevAllData.dataBase, formData],
             }));
         }
 

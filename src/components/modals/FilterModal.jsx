@@ -27,12 +27,12 @@ const FilterModal = ({
         if (checkedValues.length === 0) {
             setAllData((prev) => ({
                 ...prev,
-                all: [...prev.store],
+                current: [...prev.dataBase],
             }));
             return;
         }
 
-        const filtered = allData?.store?.filter((item) => {
+        const filtered = allData?.dataBase?.filter((item) => {
             // console.log(
             //     `Comparing item category: ${item.category} with checkedValues:`,
             //     checkedValues
@@ -42,7 +42,7 @@ const FilterModal = ({
 
         setAllData((prev) => ({
             ...prev,
-            all: filtered,
+            current: filtered,
         }));
     };
 

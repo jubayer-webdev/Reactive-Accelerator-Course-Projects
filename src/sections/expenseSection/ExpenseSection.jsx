@@ -91,14 +91,14 @@ const ExpenseSection = ({
             </div>
 
             <div className="p-4 divide-y">
-                {allExpenseData?.all?.length < 1 ? (
+                {allExpenseData?.current?.length < 1 ? (
                     <div>
                         <h3 className="text-xl font-semibold leading-7 text-gray-800 animate-pulse">
                             Expense List Empty.
                         </h3>
                     </div>
                 ) : (
-                    allExpenseData?.all?.map((expense) => (
+                    allExpenseData?.current?.map((expense) => (
                         <div
                             key={expense?.id}
                             className="flex justify-between items-center py-2 relative group cursor-pointer"
