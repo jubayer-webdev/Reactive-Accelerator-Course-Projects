@@ -3,12 +3,18 @@ import CheckBox from "../svg/CheckBox";
 
 const SortModal = ({ allData, setAllData }) => {
     const handleSort = ({ isLowToHigh = false } = {}) => {
-        const sortedData = isLowToHigh
-            ? [...allData?.all].sort((a, b) => a?.amount - b?.amount)
-            : [...allData?.all].sort((a, b) => b?.amount - a?.amount);
+        const sortedCurrentData = isLowToHigh
+            ? [...allData.all].sort((a, b) => a?.amount - b?.amount)
+            : [...allData.all].sort((a, b) => b?.amount - a?.amount);
+
+        const sortedDataBaseData = isLowToHigh
+            ? [...allData.store].sort((a, b) => a?.amount - b?.amount)
+            : [...allData.store].sort((a, b) => b?.amount - a?.amount);
+
         setAllData((prevData) => ({
             ...prevData,
-            all: sortedData,
+            all: sortedCurrentData,
+            store: sortedDataBaseData,
             isClickedLowToHigh: isLowToHigh,
         }));
     };

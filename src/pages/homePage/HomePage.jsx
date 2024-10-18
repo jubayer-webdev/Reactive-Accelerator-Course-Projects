@@ -36,28 +36,46 @@ const HomePage = () => {
     // Function to delete a item
     const handleDelete = ({ deleteItem = null, fromExpense = false } = {}) => {
         if (fromExpense) {
-            const remainExpenses = allExpenseData?.all?.filter(
+            const remainCurrentExpenses = allExpenseData?.all?.filter(
                 (expense) => expense?.id !== deleteItem?.id
             );
-            setAllExpenseData({ all: remainExpenses, store: remainExpenses });
+
+            const remainDataBaseExpenses = allExpenseData?.store?.filter(
+                (expense) => expense?.id !== deleteItem?.id
+            );
+
+            setAllExpenseData((preAll) => ({
+                ...preAll,
+                all: remainCurrentExpenses,
+                store: remainDataBaseExpenses,
+            }));
             setTotalExpense((prevTotal) => prevTotal - deleteItem?.amount);
         } else {
-            const remainIncome = allIncomeData?.all?.filter(
+            const remainCurrentIncome = allIncomeData?.all?.filter(
                 (income) => income?.id !== deleteItem?.id
             );
-            setAllIncomeData({ all: remainIncome, store: remainIncome });
+
+            const remainDataBaseIncome = allIncomeData?.store?.filter(
+                (income) => income?.id !== deleteItem?.id
+            );
+
+            setAllIncomeData((prevAll) => ({
+                ...prevAll,
+                all: remainCurrentIncome,
+                store: remainDataBaseIncome,
+            }));
             setTotalIncome((prevTotal) => prevTotal - deleteItem?.amount);
         }
     };
 
     const updateDataAccordingSorting = (allData, setAllData, setTotalTaka) => {
-        const updatedAllData = allData?.all?.map((data) => {
+        const updatedCurrentData = allData?.all?.map((data) => {
             if (data?.id === formData?.id) return formData;
             return data;
         });
 
         let totalTaka = 0;
-        const updatedStoreData = allData?.store?.map((data) => {
+        const updatedDatabaseData = allData?.store?.map((data) => {
             if (data?.id === formData?.id) {
                 totalTaka += parseFloat(formData?.amount);
                 return formData;
@@ -68,20 +86,24 @@ const HomePage = () => {
         });
 
         if (allData?.isClickedLowToHigh !== null) {
-            const update = allData?.isClickedLowToHigh
-                ? updatedAllData.sort((a, b) => a?.amount - b?.amount)
-                : updatedAllData.sort((a, b) => b?.amount - a?.amount);
+            const updateCurrent = allData?.isClickedLowToHigh
+                ? updatedCurrentData.sort((a, b) => a?.amount - b?.amount)
+                : updatedCurrentData.sort((a, b) => b?.amount - a?.amount);
+
+            const updateStore = allData?.isClickedLowToHigh
+                ? updatedDatabaseData.sort((a, b) => a?.amount - b?.amount)
+                : updatedDatabaseData.sort((a, b) => b?.amount - a?.amount);
 
             setAllData((prevAllData) => ({
                 ...prevAllData,
-                all: update,
-                store: updatedStoreData,
+                all: updateCurrent,
+                store: updateStore,
             }));
         } else {
             setAllData((prevAllData) => ({
                 ...prevAllData,
-                all: updatedAllData,
-                store: updatedStoreData,
+                all: updatedCurrentData,
+                store: updatedDatabaseData,
             }));
         }
 
@@ -103,7 +125,8 @@ const HomePage = () => {
             setAllData((prevAllData) => ({
                 ...prevAllData,
                 all: sortedData,
-                store: [...prevAllData.store, formData],
+                // store: [...prevAllData.store, formData],
+                store: sortedData,
             }));
         } else {
             setAllData((prevAllData) => ({
