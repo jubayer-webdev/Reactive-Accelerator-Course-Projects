@@ -6,7 +6,7 @@ import FilterComponent from "../../components/filter/FilterComponent";
 import SortingComponent from "../../components/sort/SortingComponent";
 import IncomeIcon from "../../components/svg/IncomeIcon";
 import formatTheDate from "../../helper/formatTheDate";
-import filterCategory from "../../data/filterCategoryIncome";
+import filterCategoryIncome from "../../data/filterCategoryIncome";
 import categoryForIncome from "../../data/categoryForIncome";
 import DeleteModal from "../../components/modals/DeleteModal";
 
@@ -80,7 +80,7 @@ const IncomeSection = ({
                                     !prev.isClickedIncomeFilter,
                             }))
                         }
-                        filterCategory={filterCategory}
+                        filterCategory={filterCategoryIncome}
                         //
                         allData={allIncomeData}
                         setAllData={setAllIncomeData}
