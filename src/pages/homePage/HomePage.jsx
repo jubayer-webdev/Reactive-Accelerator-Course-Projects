@@ -33,44 +33,6 @@ const HomePage = () => {
     });
     const [isForEdit, setIsForEdit] = useState(false);
 
-    // Function to update an existing expense
-    const updateExistingExpense = () => {
-        let totalExpense = 0;
-        const updatedExpenses = allExpenseData?.all?.map((expense) => {
-            if (expense?.id === formData?.id) {
-                totalExpense += parseFloat(formData?.amount);
-                return formData;
-            } else {
-                totalExpense += parseFloat(expense?.amount);
-                return expense;
-            }
-        });
-
-        setAllExpenseData({ all: updatedExpenses, store: updatedExpenses });
-        setTotalExpense(totalExpense);
-    };
-
-    // Function to update an existing income
-    const updateExistingIncome = () => {
-        let totalIncome = 0;
-        const updatedIncomes = allIncomeData?.all?.map((income) => {
-            if (income?.id === formData?.id) {
-                totalIncome += parseFloat(formData?.amount);
-                return formData;
-            } else {
-                totalIncome += parseFloat(income?.amount);
-                return income;
-            }
-        });
-        // console.log("🚀 ~ updatedIncomes ~ updatedIncomes:", updatedIncomes);
-
-        setAllIncomeData({
-            all: updatedIncomes,
-            store: updatedIncomes,
-        });
-        setTotalIncome(totalIncome);
-    };
-
     // Function to delete a item
     const handleDelete = ({ deleteItem = null, fromExpense = false } = {}) => {
         if (fromExpense) {
@@ -88,73 +50,110 @@ const HomePage = () => {
         }
     };
 
+    const updateDataAccordingSorting = (allData, setAllData, setTotalTaka) => {
+        const updatedAllData = allData?.all?.map((data) => {
+            if (data?.id === formData?.id) return formData;
+            return data;
+        });
+
+        let totalTaka = 0;
+        const updatedStoreData = allData?.store?.map((data) => {
+            if (data?.id === formData?.id) {
+                totalTaka += parseFloat(formData?.amount);
+                return formData;
+            } else {
+                totalTaka += parseFloat(data?.amount);
+                return data;
+            }
+        });
+
+        if (allData?.isClickedLowToHigh !== null) {
+            const update = allData?.isClickedLowToHigh
+                ? updatedAllData.sort((a, b) => a?.amount - b?.amount)
+                : updatedAllData.sort((a, b) => b?.amount - a?.amount);
+
+            setAllData((prevAllData) => ({
+                ...prevAllData,
+                all: update,
+                store: updatedStoreData,
+            }));
+        } else {
+            setAllData((prevAllData) => ({
+                ...prevAllData,
+                all: updatedAllData,
+                store: updatedStoreData,
+            }));
+        }
+
+        setTotalTaka(totalTaka);
+    };
+
+    const addNewDataAccordingSorting = (allData, setAllData, setTotalTaka) => {
+        /**
+         * There can be three case
+         * 1) lowToHigh 2) highToLow 3) nothingSelected
+         */
+
+        if (allData?.isClickedLowToHigh !== null) {
+            const addedNewData = [...allData.all, formData];
+            const sortedData = allData?.isClickedLowToHigh
+                ? addedNewData.sort((a, b) => a?.amount - b?.amount)
+                : addedNewData.sort((a, b) => b?.amount - a?.amount);
+
+            setAllData((prevAllData) => ({
+                ...prevAllData,
+                all: sortedData,
+                store: [...prevAllData.store, formData],
+            }));
+        } else {
+            setAllData((prevAllData) => ({
+                ...prevAllData,
+                all: [...prevAllData.all, formData],
+                store: [...prevAllData.store, formData],
+            }));
+        }
+
+        setTotalTaka(
+            (prevTotalTaka) => prevTotalTaka + parseFloat(formData?.amount)
+        );
+    };
+
+    // addedNewData or updateExistingData
     const handleSubmit = (e, isIncomeClicked = false) => {
         e.preventDefault();
         // console.log(formData, e);
 
         if (isIncomeClicked) {
             if (isForEdit) {
-                updateExistingIncome();
+                updateDataAccordingSorting(
+                    allIncomeData,
+                    setAllIncomeData,
+                    setTotalIncome
+                );
             } else {
-                /**
-                 * There can be three case
-                 * 1) lowToHigh 2) highToLow 3) nothingSelected
-                 */
-
-                if (allIncomeData?.isClickedLowToHigh !== null) {
-                    const addedNewData = [...allIncomeData.all, formData];
-                    const sortedData = allIncomeData?.isClickedLowToHigh
-                        ? addedNewData.sort((a, b) => a?.amount - b?.amount)
-                        : addedNewData.sort((a, b) => b?.amount - a?.amount);
-
-                    setAllIncomeData((prevIncome) => ({
-                        ...prevIncome,
-                        all: sortedData,
-                        store: [...prevIncome.store, formData],
-                    }));
-                } else {
-                    setAllIncomeData((prevIncome) => ({
-                        ...prevIncome,
-                        all: [...prevIncome.all, formData],
-                        store: [...prevIncome.store, formData],
-                    }));
-                }
-
-                setTotalIncome(
-                    (prevTotalIncome) =>
-                        prevTotalIncome + parseFloat(formData?.amount)
+                addNewDataAccordingSorting(
+                    allIncomeData,
+                    setAllIncomeData,
+                    setTotalIncome
                 );
             }
         } else {
             if (isForEdit) {
-                updateExistingExpense();
+                updateDataAccordingSorting(
+                    allExpenseData,
+                    setAllExpenseData,
+                    setTotalExpense
+                );
             } else {
-                if (allExpenseData?.isClickedLowToHigh !== null) {
-                    const addedNewData = [...allExpenseData.all, formData];
-                    const sortedData = allExpenseData?.isClickedLowToHigh
-                        ? addedNewData.sort((a, b) => a?.amount - b?.amount)
-                        : addedNewData.sort((a, b) => b?.amount - a?.amount);
-
-                    setAllExpenseData((prevExpense) => ({
-                        ...prevExpense,
-                        all: sortedData,
-                        store: [...prevExpense.store, formData],
-                    }));
-                } else {
-                    setAllExpenseData((prevExpense) => ({
-                        ...prevExpense,
-                        all: [...prevExpense.all, formData],
-                        store: [...prevExpense.store, formData],
-                    }));
-                }
-
-                setTotalExpense(
-                    (prevTotalExpense) =>
-                        prevTotalExpense + parseFloat(formData?.amount)
+                addNewDataAccordingSorting(
+                    allExpenseData,
+                    setAllExpenseData,
+                    setTotalExpense
                 );
             }
         }
 
+        // reset data
         setFormData({
             id: crypto.randomUUID(),
             category: "",
