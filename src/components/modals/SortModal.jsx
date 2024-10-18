@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import CheckBox from "../svg/CheckBox";
 
 const SortModal = ({ allData, setAllData }) => {
     const handleSort = ({ isLowToHigh = false } = {}) => {
@@ -8,6 +9,7 @@ const SortModal = ({ allData, setAllData }) => {
         setAllData((prevData) => ({
             ...prevData,
             all: sortedData,
+            isClickedLowToHigh: isLowToHigh,
         }));
     };
 
@@ -29,7 +31,16 @@ const SortModal = ({ allData, setAllData }) => {
                     id="menu-item-0"
                     onClick={() => handleSort({ isLowToHigh: true })}
                 >
-                    Low to High
+                    <span className="flex gap-2">
+                        <CheckBox
+                            className={`${
+                                allData?.isClickedLowToHigh
+                                    ? "visible"
+                                    : "invisible"
+                            }`}
+                        />
+                        Low to High
+                    </span>
                 </button>
 
                 <button
@@ -41,7 +52,16 @@ const SortModal = ({ allData, setAllData }) => {
                     id="menu-item-0"
                     onClick={() => handleSort()}
                 >
-                    High to Low
+                    <span className="flex gap-2">
+                        <CheckBox
+                            className={`${
+                                allData?.isClickedLowToHigh === false
+                                    ? "visible"
+                                    : "invisible"
+                            }`}
+                        />
+                        High to Low
+                    </span>
                 </button>
             </div>
         </div>

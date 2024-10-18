@@ -10,10 +10,12 @@ const HomePage = () => {
     const [allExpenseData, setAllExpenseData] = useState({
         all: allExpense,
         store: allExpense,
+        isClickedLowToHigh: null,
     });
     const [allIncomeData, setAllIncomeData] = useState({
         all: allIncome,
         store: allIncome,
+        isClickedLowToHigh: null,
     });
 
     const [isIncomeClicked, setIsIncomeClicked] = useState(false);
@@ -94,11 +96,30 @@ const HomePage = () => {
             if (isForEdit) {
                 updateExistingIncome();
             } else {
-                setAllIncomeData((prevIncome) => ({
-                    ...prevIncome,
-                    all: [...prevIncome.all, formData],
-                    store: [...prevIncome.store, formData],
-                }));
+                /**
+                 * There can be three case
+                 * 1) lowToHigh 2) highToLow 3) nothingSelected
+                 */
+
+                if (allIncomeData?.isClickedLowToHigh !== null) {
+                    const addedNewData = [...allIncomeData.all, formData];
+                    const sortedData = allIncomeData?.isClickedLowToHigh
+                        ? addedNewData.sort((a, b) => a?.amount - b?.amount)
+                        : addedNewData.sort((a, b) => b?.amount - a?.amount);
+
+                    setAllIncomeData((prevIncome) => ({
+                        ...prevIncome,
+                        all: sortedData,
+                        store: [...prevIncome.store, formData],
+                    }));
+                } else {
+                    setAllIncomeData((prevIncome) => ({
+                        ...prevIncome,
+                        all: [...prevIncome.all, formData],
+                        store: [...prevIncome.store, formData],
+                    }));
+                }
+
                 setTotalIncome(
                     (prevTotalIncome) =>
                         prevTotalIncome + parseFloat(formData?.amount)
@@ -108,11 +129,25 @@ const HomePage = () => {
             if (isForEdit) {
                 updateExistingExpense();
             } else {
-                setAllExpenseData((prevExpense) => ({
-                    ...prevExpense,
-                    all: [...prevExpense.all, formData],
-                    store: [...prevExpense.store, formData],
-                }));
+                if (allExpenseData?.isClickedLowToHigh !== null) {
+                    const addedNewData = [...allExpenseData.all, formData];
+                    const sortedData = allExpenseData?.isClickedLowToHigh
+                        ? addedNewData.sort((a, b) => a?.amount - b?.amount)
+                        : addedNewData.sort((a, b) => b?.amount - a?.amount);
+
+                    setAllExpenseData((prevExpense) => ({
+                        ...prevExpense,
+                        all: sortedData,
+                        store: [...prevExpense.store, formData],
+                    }));
+                } else {
+                    setAllExpenseData((prevExpense) => ({
+                        ...prevExpense,
+                        all: [...prevExpense.all, formData],
+                        store: [...prevExpense.store, formData],
+                    }));
+                }
+
                 setTotalExpense(
                     (prevTotalExpense) =>
                         prevTotalExpense + parseFloat(formData?.amount)
