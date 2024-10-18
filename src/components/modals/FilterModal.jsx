@@ -80,6 +80,11 @@ const FilterModal = ({
 
 FilterModal.propTypes = {
     filterCategory: PropTypes.array.isRequired,
+    allData: PropTypes.object.isRequired,
+    setAllData: PropTypes.func.isRequired,
+    //
+    checkedState: PropTypes.object.isRequired,
+    setCheckedState: PropTypes.func.isRequired,
 };
 
 export default FilterModal;
