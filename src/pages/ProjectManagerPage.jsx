@@ -1,5 +1,6 @@
+import SearchStringContextProvider from "../contexts/SearchStringContextProvider";
 import ProjectContainer from "./ProjectContainer";
-import SearchBar from "./Searchbar";
+import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
 
 const ProjectManagerPage = () => {
@@ -7,11 +8,13 @@ const ProjectManagerPage = () => {
         <div className="flex h-screen">
             <Sidebar />
 
-            <main className="flex-1 overflow-y-auto overflow-x-hidden">
-                <SearchBar />
+            <SearchStringContextProvider>
+                <main className="flex-1 overflow-y-auto overflow-x-hidden">
+                    <SearchBar />
 
-                <ProjectContainer />
-            </main>
+                    <ProjectContainer />
+                </main>
+            </SearchStringContextProvider>
         </div>
     );
 };

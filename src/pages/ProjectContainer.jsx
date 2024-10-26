@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import getSeparateProjectList from "../utils/getSeparateProjectList";
 import CreateTaskModal from "./CreateTaskModal";
 import { ProjectList } from "./ProjectList";
 import { allProjects } from "../data/initialAllProjects";
+import { SearchStringContext } from "../contexts/SearchStringContextProvider";
 
 const ProjectContainer = () => {
+    const { searchString } = useContext(SearchStringContext);
     // const [allProjectList, setAllProjectList] = useState([]);
     const [allProjectList, setAllProjectList] = useState(allProjects);
     const [dataToUpdate, setDataToUpdate] = useState(null);
@@ -43,9 +45,21 @@ const ProjectContainer = () => {
         setDataToUpdate(item);
     };
 
+    let currentSearchResult = allProjectList;
+    if (searchString) {
+        // remove all tailing spaces
+        const theSearchString = searchString.trim();
+        currentSearchResult = allProjectList.filter((project) => {
+            return project.taskName
+                .toLowerCase()
+                .replace(/\s+/g, "")
+                .includes(theSearchString.toLowerCase().replace(/\s+/g, ""));
+        });
+    }
+
     // separate project list
     const { todoProjects, onProgressProjects, doneProjects, reviseProjects } =
-        getSeparateProjectList(allProjectList);
+        getSeparateProjectList(currentSearchResult);
     // calculate total
     // const { todoCount, onProgressCount, doneCount, revisedCount } =
     //     getSeparateTotalCount(allProjectList);
