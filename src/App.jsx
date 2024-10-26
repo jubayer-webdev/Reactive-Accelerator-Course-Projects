@@ -1,8 +1,10 @@
+import ProjectManagerPage from "./pages/ProjectManagerPage";
+
 function App() {
     return (
-        <>
-            <p>Hello world</p>
-        </>
+        <div className="bg-gray-900 text-white">
+            <ProjectManagerPage />
+        </div>
     );
 }
 
