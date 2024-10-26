@@ -1,0 +1,51 @@
+export const allProjects = [
+    {
+        id: "1a2b3c4d-1234-5678-90ab-cdef12345678",
+        taskName: "Write project report",
+        category: "todo",
+        description: "Complete the final project report for submission.",
+        dueDate: "2024-10-26",
+    },
+    {
+        id: "2b3c4d5e-2345-6789-01bc-def123456789",
+        taskName: "Update client presentation",
+        category: "onProgress",
+        description: "Revise slides for next week's client meeting.",
+        dueDate: "2024-11-01",
+    },
+    {
+        id: "3c4d5e6f-3456-7890-12cd-ef123456789a",
+        taskName: "Code review",
+        category: "done",
+        description: "Review pull requests and provide feedback.",
+        dueDate: "2024-10-15",
+    },
+    {
+        id: "4d5e6f7g-4567-8901-23de-f123456789ab",
+        taskName: "Plan product launch",
+        category: "revise",
+        description: "Rework the marketing plan for the product launch.",
+        dueDate: "2024-10-29",
+    },
+    {
+        id: "5e6f7g8h-5678-9012-34ef-123456789abc",
+        taskName: "Team sprint planning",
+        category: "todo",
+        description: "Schedule the next sprint and assign tasks.",
+        dueDate: "2024-11-05",
+    },
+    {
+        id: "6f7g8h9i-6789-0123-45f0-23456789abcd",
+        taskName: "Research new software tools",
+        category: "onProgress",
+        description: "Analyze options for project management software.",
+        dueDate: "2024-10-30",
+    },
+    {
+        id: "7g8h9i0j-7890-1234-56f1-3456789abcde",
+        taskName: "Prepare budget report",
+        category: "todo",
+        description: "Prepare a detailed budget report for Q4.",
+        dueDate: "2024-11-10",
+    },
+];

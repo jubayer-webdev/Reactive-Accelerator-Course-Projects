@@ -1,4 +1,5 @@
 const Sidebar = () => {
+    // const links = [{ name: "Dashboard", href: "#", icon: "" }];
     return (
         <aside className="hidden w-64 bg-gray-800 p-6 lg:block">
             <div className="mb-8 flex items-center">
