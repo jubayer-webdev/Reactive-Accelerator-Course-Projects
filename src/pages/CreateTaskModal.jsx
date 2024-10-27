@@ -53,7 +53,7 @@ const CreateTaskModal = ({
     };
 
     return (
-        <div className="fixed inset-0 z-10 flex items-center justify-center bg-gray-900 bg-opacity-60">
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-gray-900 bg-opacity-40 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-lg bg-gray-800 shadow-xl">
                 <div className="p-6">
                     <h2 className="mb-6 text-2xl font-bold text-green-400">

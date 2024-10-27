@@ -1,41 +1,71 @@
-import { useContext, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 import getSeparateProjectList from "../utils/getSeparateProjectList";
 import CreateTaskModal from "./CreateTaskModal";
 import { ProjectList } from "./ProjectList";
-import { allProjects } from "../data/initialAllProjects";
 import { SearchStringContext } from "../contexts/SearchStringContextProvider";
+import { initialState, ProjectReducer } from "../reducer/ProjectReducer";
 
 const ProjectContainer = () => {
     const { searchString } = useContext(SearchStringContext);
     // const [allProjectList, setAllProjectList] = useState([]);
-    const [allProjectList, setAllProjectList] = useState(allProjects);
+    // const [allProjectList, setAllProjectList] = useState(allProjects);
+    const [state, dispatch] = useReducer(ProjectReducer, initialState);
+
     const [dataToUpdate, setDataToUpdate] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
     const handleAddItem = (newData) => {
-        setAllProjectList([...allProjectList, newData]);
+        // setAllProjectList([...state.allProjectList, newData]);
 
+        // toggleTaskModal(null);
+
+        // using reducer
+        dispatch({
+            type: "ADD_TO_PROJECT",
+            payload: { ...newData },
+        });
         toggleTaskModal(null);
     };
 
-    const handleDelete = (deleteId) => {
+    // const handleDelete = (deleteId) => {
+    //     const confirm = window.confirm("Are you sure to delete this item?");
+    //     if (!confirm) return;
+
+    //     const afterDelete = allProjectList.filter(
+    //         (item) => item.id !== deleteId
+    //     );
+    //     setAllProjectList(afterDelete);
+    //     setDataToUpdate(null);
+    // };
+
+    // using reducer
+    const handleDelete = (deleteItem) => {
         const confirm = window.confirm("Are you sure to delete this item?");
         if (!confirm) return;
 
-        const afterDelete = allProjectList.filter(
-            (item) => item.id !== deleteId
-        );
-        setAllProjectList(afterDelete);
+        dispatch({ type: "REMOVE_TO_PROJECT", payload: deleteItem });
+
         setDataToUpdate(null);
     };
 
+    // const handleUpdate = (theUpdateItem) => {
+    //     const updatedItems = allProjectList.map((project) => {
+    //         if (project.id === theUpdateItem.id) return theUpdateItem;
+    //         return project;
+    //     });
+
+    //     setAllProjectList(updatedItems);
+    //     setDataToUpdate(null);
+    //     toggleTaskModal(null);
+    // };
+
+    // using reducer
     const handleUpdate = (theUpdateItem) => {
-        const updatedItems = allProjectList.map((project) => {
-            if (project.id === theUpdateItem.id) return theUpdateItem;
-            return project;
+        dispatch({
+            type: "UPDATE_TO_PROJECT",
+            payload: { ...theUpdateItem },
         });
 
-        setAllProjectList(updatedItems);
         setDataToUpdate(null);
         toggleTaskModal(null);
     };
@@ -45,11 +75,11 @@ const ProjectContainer = () => {
         setDataToUpdate(item);
     };
 
-    let currentSearchResult = allProjectList;
+    let currentSearchResult = state.allProjectList;
     if (searchString) {
         // remove all tailing spaces
         const theSearchString = searchString.trim();
-        currentSearchResult = allProjectList.filter((project) => {
+        currentSearchResult = state.allProjectList.filter((project) => {
             return project.taskName
                 .toLowerCase()
                 .replace(/\s+/g, "")

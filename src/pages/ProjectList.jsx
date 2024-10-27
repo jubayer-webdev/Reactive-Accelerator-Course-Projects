@@ -58,8 +58,8 @@ export const ProjectList = ({
                         </h3>
                     </div>
                 ) : (
-                    [...projectsData]?.sort(handleSort)?.map((todo) => (
-                        <div key={todo?.id}>
+                    [...projectsData]?.sort(handleSort)?.map((project) => (
+                        <div key={project?.id}>
                             <div className="mb-4 rounded-lg bg-gray-800 p-4">
                                 <div className="flex justify-between">
                                     <h4
@@ -68,29 +68,30 @@ export const ProjectList = ({
                                             PROJECT_STATUS_TEXTS_MAP[type]
                                         }
                                     >
-                                        {todo?.taskName}
+                                        {project?.taskName}
                                     </h4>
 
                                     <div className="flex gap-2">
                                         <DeleteIcon
                                             onClick={() =>
-                                                handleDelete(todo?.id)
+                                                // handleDelete(todo?.id)
+                                                handleDelete(project)
                                             }
                                         />
 
                                         <PencilIcon
                                             onClick={() =>
-                                                toggleTaskModal(todo)
+                                                toggleTaskModal(project)
                                             }
                                         />
                                     </div>
                                 </div>
                                 <p className="mb-2 text-sm text-zinc-200">
-                                    {todo?.description}
+                                    {project?.description}
                                 </p>
 
                                 <p className="mt-6 text-xs text-zinc-400">
-                                    {formatDateToLong(todo?.dueDate)}
+                                    {formatDateToLong(project?.dueDate)}
                                 </p>
                             </div>
                         </div>
