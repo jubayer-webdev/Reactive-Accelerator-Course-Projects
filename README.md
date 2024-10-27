@@ -1,3 +1,10 @@
+## Table of Contents
+
+-   [Project's Live Link](#projects-live-link)
+-   [🚀 How to run](#-how-to-run)
+-   [Assignment এর জন্য প্রয়োজনীয় template HTML:](#assignment-এর-জন্য-প্রয়োজনীয়-template-html)
+-   [এসাইনমেন্টে আপনাকে যা যা করতে হবেঃ](#এসাইনমেন্টে-আপনাকে-যা-যা-করতে-হবেঃ)
+
 ## Project's Live Link
 
 [https://reactive-accelerato-git-566c91-md-jubayer-hossen-james-projects.vercel.app/](https://reactive-accelerato-git-566c91-md-jubayer-hossen-james-projects.vercel.app/)
@@ -10,7 +17,7 @@ Please follow the below instructions to run this branch in your machine:
 
 2. Clone this repository -
     ```sh
-    https://github.com/jubayer-webdev/Reactive-Accelerator-Course.git
+    git clone https://github.com/jubayer-webdev/Reactive-Accelerator-Course.git
     ```
 3. Go to the cloned project directory
     ```sh
@@ -28,6 +35,12 @@ Please follow the below instructions to run this branch in your machine:
     ```sh
     npm run dev
     ```
+
+## Assignment এর জন্য প্রয়োজনীয় template HTML:
+
+assignment এর সাথে প্রয়োজনীয় HTML template এর জন্য [Github Link](https://github.com/Learn-with-Sumit/rnext/tree/assignment-3-batch-2)। এখানে 'dist' folder এর ভিতর HTML template পাবেন। না বুঝলে [এইখানে ক্লিক](https://learnwithsumit.com/rnext/courses/rnext/how-to-submit-assignments-in-reactive-accelerator-course) করে টিউটোরিয়াল দেখে নিতে পারেন।
+
+-   [Assignment 3 Requirements - Batch 2 - Project Manager](https://learnwithsumit.com/rnext/courses/rnext/assignment-3-requirements-batch-2-project-manager)
 
 ## এসাইনমেন্টে আপনাকে যা যা করতে হবেঃ
 
@@ -54,9 +67,3 @@ Please follow the below instructions to run this branch in your machine:
 ✓ পুরো প্রজেক্টটি জাভাস্ক্রিপ্টে করতে হবে । টাইপস্ক্রিপ্ট ব্যবহার করা যাবেনা।
 
 ✓ কোন ধরণের একশনে পেইজ রিলোড গ্রহণযোগ্য নয়।
-
-## Assignment এর জন্য প্রয়োজনীয় template HTML:
-
-assignment এর সাথে প্রয়োজনীয় HTML template এর জন্য [Github Link](https://github.com/Learn-with-Sumit/rnext/tree/assignment-3-batch-2)। এখানে 'dist' folder এর ভিতর HTML template পাবেন। না বুঝলে [এইখানে ক্লিক](https://learnwithsumit.com/rnext/courses/rnext/how-to-submit-assignments-in-reactive-accelerator-course) করে টিউটোরিয়াল দেখে নিতে পারেন।
-
--   [Assignment 3 Requirements - Batch 2 - Project Manager](https://learnwithsumit.com/rnext/courses/rnext/assignment-3-requirements-batch-2-project-manager)
