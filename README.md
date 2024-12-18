@@ -7,6 +7,8 @@
 09:08 - markdown(.md) file's structure
 16:06 - Creating Parser
 17:40 - Parsing logic
+32:00 - tailwind configuration
+33:29 - modify RootLayout
 ```
 
 ## Necessary Command
