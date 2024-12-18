@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
+import { getDocuments } from "@/lib/doc";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -18,6 +20,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+   const allDocuments = getDocuments();
+   console.log("🚀 ~ RootLayout ~ allDocuments:", allDocuments)
+   
   return (
     <html lang="en">
       <body
