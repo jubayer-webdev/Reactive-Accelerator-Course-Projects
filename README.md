@@ -29,6 +29,12 @@ Install dependencies of parser
 yarn add gray-matter remark remark-html
 ```
 
+Install Tailwind plugins
+
+````
+yarn add @tailwindcss/aspect-ratio @tailwindcss/typography
+```
+
 Run the project
 
 ```
@@ -40,3 +46,4 @@ yarn dev
 -   [remark](https://www.npmjs.com/package/remark)
 -   [remark-html](https://www.npmjs.com/package/remark-html)
 -   [gray-matter](https://www.npmjs.com/package/gray-matter)
+````
