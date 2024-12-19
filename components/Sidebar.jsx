@@ -1,17 +1,44 @@
+"use client";
+
+import {
+    getDocumentsByAuthor,
+    getDocumentsByCategory,
+    getDocumentsByTag,
+} from "@/utils/doc-util";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 // RootLayout - Header - Sidebar
 const Sidebar = ({ docs }) => {
-    const roots = docs.filter((doc) => !doc.parent);
-    // console.log("🚀 ~ Sidebar ~ roots:", roots);
+    const pathName = usePathname();
+    const [rootNodes, setRootNodes] = useState([]);
+    const [nonRootNodesGrouped, setNonRootNodesGrouped] = useState({});
 
-    // const chields = docs.filter((doc) => doc.parent);
-    // console.log("🚀 ~ Sidebar ~ chields:", chields);
-    const nonRoots = Object.groupBy(
-        docs.filter((doc) => doc.parent),
-        ({ parent }) => parent
-    );
-    // console.log("🚀 ~ Sidebar ~ nonRoots:", nonRoots);
+    useEffect(() => {
+        let matchedDocs = docs;
+
+        if (pathName.includes("/tags")) {
+            const tag = pathName.split("/")[2];
+            matchedDocs = getDocumentsByTag(docs, tag);
+        } else if (pathName.includes("/authors")) {
+            const author = pathName.split("/")[2];
+            matchedDocs = getDocumentsByAuthor(docs, author);
+        } else if (pathName.includes("/categories")) {
+            const category = pathName.split("/")[2];
+            matchedDocs = getDocumentsByCategory(docs, category);
+        }
+
+        const roots = matchedDocs.filter((post) => !post.parent);
+        const nonRoots = Object.groupBy(
+            matchedDocs.filter((post) => post.parent),
+            ({ parent }) => parent
+        );
+
+        setRootNodes([...roots]);
+        setNonRootNodesGrouped({ ...nonRoots });
+        console.log(pathName);
+    }, [pathName]);
 
     return (
         <nav className="lg:block my-10">
@@ -22,7 +49,7 @@ const Sidebar = ({ docs }) => {
                     <div className="absolute left-2 h-6 w-px bg-emerald-500"></div>
                     {/* <!-- sidebar nav --> */}
                     <ul role="list" className="border-l border-transparent">
-                        {roots.map((rootNode) => (
+                        {rootNodes.map((rootNode) => (
                             <li key={rootNode.id} className="relative">
                                 <Link
                                     aria-current="page"
@@ -34,12 +61,12 @@ const Sidebar = ({ docs }) => {
                                     </span>
                                 </Link>
 
-                                {nonRoots[rootNode.id] && (
+                                {nonRootNodesGrouped[rootNode.id] && (
                                     <ul
                                         role="list"
                                         className="border-l border-transparent"
                                     >
-                                        {nonRoots[rootNode.id].map(
+                                        {nonRootNodesGrouped[rootNode.id].map(
                                             (subRoot) => (
                                                 <li key={subRoot.id}>
                                                     <Link
