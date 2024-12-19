@@ -22,6 +22,7 @@
 01:06:00 - HOme or Landing Page implementation
 01:09:25 - bug fix of tailwind.config.js
 01:10:48 - Dynamic Routing
+01:20:40 - implement getDocumentContent() in doc.js
 ```
 
 ## Necessary Commands
