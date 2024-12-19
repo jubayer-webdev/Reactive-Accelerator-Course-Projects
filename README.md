@@ -1,3 +1,12 @@
+## Table of Contents
+
+-   [Project's Live Link](#projects-live-link)
+-   [Timestamp](#timestamp)
+-   [Necessary Commands](#necessary-commands)
+-   [Dependencies for creating parser](#dependencies-for-creating-parser)
+
+## Project's Live Link
+
 ## Timestamp
 
 ```
@@ -9,9 +18,11 @@
 17:40 - Parsing logic
 32:00 - tailwind configuration
 33:29 - modify RootLayout
+46:00 - Sidebar implementation
+01:06:00 - Content implementation
 ```
 
-## Necessary Command
+## Necessary Commands
 
 To create a next.js project
 
@@ -33,7 +44,7 @@ yarn add gray-matter remark remark-html
 
 Install Tailwind plugins
 
-````
+```
 yarn add @tailwindcss/aspect-ratio @tailwindcss/typography
 ```
 
@@ -48,4 +59,3 @@ yarn dev
 -   [remark](https://www.npmjs.com/package/remark)
 -   [remark-html](https://www.npmjs.com/package/remark-html)
 -   [gray-matter](https://www.npmjs.com/package/gray-matter)
-````
