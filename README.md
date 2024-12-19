@@ -1,13 +1,13 @@
 ## Table of Contents
 
 -   [Project's Live Link](#projects-live-link)
--   [Timestamp](#timestamp)
+-   [Timestamp for 7.11 Project Tutorial - DocuCraft - Part 1](#timestamp-for-711-project-tutorial---docucraft---part-1)
 -   [Necessary Commands](#necessary-commands)
 -   [Dependencies for creating parser](#dependencies-for-creating-parser)
 
 ## Project's Live Link
 
-## Timestamp
+## Timestamp for 7.11 Project Tutorial - DocuCraft - Part 1
 
 ```
 05:00 - Introduction to the project
@@ -23,6 +23,7 @@
 01:09:25 - bug fix of tailwind.config.js
 01:10:48 - Dynamic Routing
 01:20:40 - implement getDocumentContent() in doc.js
+01:25:50 - implement ContentDisplay.jsx
 ```
 
 ## Necessary Commands
