@@ -35,9 +35,28 @@ const Sidebar = ({ docs }) => {
             ({ parent }) => parent
         );
 
+        // find the parent to print the child label in sidebar bcz in our html firstly we print the parent then its child
+        const nonRootsKeys = Reflect.ownKeys(nonRoots);
+        nonRootsKeys.forEach((key) => {
+            const foundInRoots = roots.find((root) => root.id === key);
+            if (!foundInRoots) {
+                const foundInDocs = docs.find((doc) => doc.id === key);
+                roots.push(foundInDocs);
+            }
+        });
+
+        roots.sort((a, b) => {
+            if (a.order < b.order) {
+                return -1;
+            }
+            if (a.order > b.order) {
+                return 1;
+            }
+            return 0;
+        });
+
         setRootNodes([...roots]);
         setNonRootNodesGrouped({ ...nonRoots });
-        console.log(pathName);
     }, [pathName]);
 
     return (
