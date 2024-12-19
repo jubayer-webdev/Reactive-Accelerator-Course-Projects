@@ -19,7 +19,9 @@
 32:00 - tailwind configuration
 33:29 - modify RootLayout
 46:00 - Sidebar implementation
-01:06:00 - Content implementation
+01:06:00 - HOme or Landing Page implementation
+01:09:25 - bug fix of tailwind.config.js
+01:10:48 - Dynamic Routing
 ```
 
 ## Necessary Commands
