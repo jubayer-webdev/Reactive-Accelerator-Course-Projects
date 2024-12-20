@@ -4,10 +4,12 @@ import { useDebounce } from "@/hooks/useDebounce";
 import Image from "next/image";
 import { useState } from "react";
 import SearchResult from "./SearchResult";
+import { useRouter } from "next/navigation";
 
 const Search = ({ docs }) => {
     const [searchResult, setSearchResult] = useState([]);
     const [term, setTerm] = useState("");
+    const router = useRouter();
 
     function handleChange(e) {
         const value = e.target.value;
@@ -25,6 +27,8 @@ const Search = ({ docs }) => {
 
     function closeSearchResults(event) {
         event.preventDefault();
+        // in <Link> component, the precedence of the onClick event is higher than the href
+        router.push(event.target.href);
         setTerm("");
     }
 
