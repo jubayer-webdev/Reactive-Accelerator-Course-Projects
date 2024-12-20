@@ -2,7 +2,8 @@
 
 -   [Project's Live Link](#projects-live-link)
 -   [Timestamp for 7.11 Project Tutorial - DocuCraft - Part 1](#timestamp-for-711-project-tutorial---docucraft---part-1)
--   [Timestamp for 7.12 Project Tutorial - DocuCraft - Part 2](#timestamp-for-7.12-project-tutorial---docuCraft---part-2)
+-   [Timestamp for 7.12 Project Tutorial - DocuCraft - Part 2](#timestamp-for-712-project-tutorial---docuCraft---part-2)
+-   [Timestamp for 7.13 Project Tutorial - DocuCraft - Part 3](#timestamp-for-713-project-tutorial---docuCraft---part-3)
 -   [Necessary Commands](#necessary-commands)
 -   [Dependencies for creating parser](#dependencies-for-creating-parser)
 
@@ -33,6 +34,13 @@
 00:05 - implement authors, categories and tags segment
 15:30 - bug fix: show the child label perfectly
 21:10 - implement authors, categories and tags page content
+```
+
+## Timestamp for 7.13 Project Tutorial - DocuCraft - Part 3
+
+```
+00:05 - implement search
+17:42 - bug fix: show content on click on the search result
 ```
 
 ## Necessary Commands
