@@ -41,6 +41,8 @@
 ```
 00:05 - implement search
 17:42 - bug fix: show content on click on the search result
+19:49 - Run Time Error handle (error.js)
+23:15 - loading.js
 ```
 
 ## Necessary Commands
