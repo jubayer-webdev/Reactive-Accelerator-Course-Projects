@@ -39,11 +39,12 @@
 ## Timestamp for 7.13 Project Tutorial - DocuCraft - Part 3
 
 ```
-00:05 - implement search
+00:05 - typeahead search
 17:42 - bug fix: show content on click on the search result
 19:49 - Run Time Error handle (error.js)
 23:15 - loading.js
 26:15 - Deploy on vercel
+27:57 - Summary
 ```
 
 ## Necessary Commands
